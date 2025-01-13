@@ -1,11 +1,14 @@
-import './App.css'
+import { RouterProvider } from 'react-router-dom'
+import { mainRoute } from './Routes/Mainroutes'
 
 function App() {
 
   return (
-    <div className='text-5xl'>
-      Lucas graham
-    </div>
+    <>
+      <RouterProvider router={mainRoute}>
+
+      </RouterProvider>
+    </>
   )
 }
 
