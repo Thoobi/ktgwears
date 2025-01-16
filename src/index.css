@@ -10,7 +10,7 @@
 .hover\:animate-spin-slow:hover {
     animation-name: spin-slow;
     animation-duration: 900ms;
-    animation-iteration-count: 9;
+    animation-iteration-count: 1;
     animation-delay: 1ms;
     animation-timing-function: ease-in-out;
 }
