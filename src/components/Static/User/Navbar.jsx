@@ -1,37 +1,39 @@
-import { useEffect, useState } from 'react';
-import ktglogo from '../../../assets/ktg-logo.svg'
+import { useState } from 'react';
+import ktgimg from '../../../assets/ktg-text-logo.png'
 import { Link, NavLink } from 'react-router-dom'
 import { navcomponent } from '../../../lib/navbar'
 import { IoAddOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState("");
-  useEffect(()=>{
-
-  })
   return (
-    <nav className="w-full bg-white h-14 border-b-[1px] border-b-black flex items-center px-10 absolute top-0 z-10 justify-between">
-        <Link href={"/"} className='flex gap-2 items-center'>
-        <span className='h-6 w-6 hover:animate-spin-slow'>
-          <img src={ktglogo} alt="The logo of the brand KTG wears" />
-        </span>
-          <h3 className='text-base font-medium'>KTG</h3>
-        </Link>
-      
-      <NavLink className='flex flex-row gap-10'>
-        {navcomponent.map((items, index)=>(
-          <ul key={index} className={`${isActive === items.title ? "border-b-2 border-b-black" : ""} text-sm text-black p-1 `}>
-            <Link className='p-1' onClick={()=>{
-              setIsActive(items.title)
-            }}>{items.title}</Link>
-          </ul>
-        ))}
-      </NavLink>
-      <div className='text-sm flex items-center gap-3'>
-          <Link>CART</Link>
-          <span className='h-4 w-4 text-black font-medium cursor-pointer'><IoAddOutline className='h-full w-full' /></span>
-      </div>
-    </nav>
+      <nav className="w-full bg-white/[.20] border-b-[1px] border-b-black flex items-center px-10 absolute top-0 z-10 justify-between pt-10 pb-3">
+          <Link href={"/"} className='flex gap-2 items-center'>
+            <span className='h-full w-full'>
+              <img src={ktgimg} alt="The logo of the brand KTG wears" />
+            </span>
+          </Link>
+        
+        <NavLink className='flex flex-row gap-8'>
+          {navcomponent.map((items, index)=>(
+            <div key={index} className={`text-sm text-black font-medium`}>
+              <Link className='py-[2px] group relative overflow-hidden' onClick={()=>{
+                setIsActive(items.title)
+              }}>
+                {isActive === items.title ? (`•${items.title}•`) : `${items.title}`}
+                <span className="absolute bottom-0 left-0 w-0 h-[1.2px] bg-black transition-all duration-300 ease-in-out group-hover:w-full hover:w-full"></span>
+              </Link>
+            </div>
+          ))}
+        </NavLink>
+        <div className='text-sm text-black font-medium flex items-center gap-3'>
+            <Link>CART</Link>
+            <div className='flex gap-1 items-center cursor-pointer'>
+              <span>MENU</span>
+              <IoAddOutline className='text-black' size={20} />
+            </div>
+        </div>
+      </nav>
   )
 }
 
