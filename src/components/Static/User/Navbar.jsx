@@ -7,7 +7,7 @@ import { IoAddOutline } from "react-icons/io5";
 const Navbar = () => {
   const [isActive, setIsActive] = useState("");
   return (
-      <nav className="w-full bg-white/[.20] border-b-[1px] border-b-black flex items-center px-10 absolute top-0 z-10 justify-between pt-10 pb-3">
+      <nav className="w-full bg-white/[.98] border-b-[1px] border-b-black flex items-center px-10 py-3 fixed top-0 z-10 justify-between pt-5">
           <Link href={"/"} className='flex gap-2 items-center'>
             <span className='h-full w-full'>
               <img src={ktgimg} alt="The logo of the brand KTG wears" />
@@ -16,7 +16,7 @@ const Navbar = () => {
         
         <NavLink className='flex flex-row gap-8'>
           {navcomponent.map((items, index)=>(
-            <div key={index} className={`text-sm text-black font-medium`}>
+            <div key={index} className={`text-sm text-black font-medium group`}>
               <Link className='py-[2px] group relative overflow-hidden' onClick={()=>{
                 setIsActive(items.title)
               }}>
