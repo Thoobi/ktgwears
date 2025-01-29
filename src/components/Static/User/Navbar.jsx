@@ -1,13 +1,29 @@
 import ktgimg from "../../../assets/ktg-text-logo.png";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { navcomponent } from "../../../lib/navbar";
 import { IoAddOutline } from "react-icons/io5";
 import { useState, useEffect } from "react";
 
 const Navbar = () => {
+  const location = useLocation();
   const [active, setActive] = useState(() => {
     return localStorage.getItem("activePath") || "";
   });
+  console.log(window.location.pathname === active);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setActive(window.location.pathname);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }, []);
+
+  useEffect(() => {
+    setActive(location.pathname);
+  }, [location]);
 
   useEffect(() => {
     if (active === "") {
@@ -18,11 +34,11 @@ const Navbar = () => {
   }, [active]);
 
   const handleLogoClick = () => {
-    setActive("");
+    setActive("/");
   };
 
   return (
-    <nav className="w-full bg-white/[.98] border-b-[1px] border-b-black/[.4] flex items-center px-5 py-3 fixed top-0 z-10 justify-between pt-5">
+    <nav className="w-full bg-white/[.99] border-b-[1px] border-b-black/[.4] flex items-center px-5 py-3 fixed top-0 z-20 justify-between pt-5">
       <Link
         href={"/"}
         onClick={handleLogoClick}
@@ -56,12 +72,20 @@ const Navbar = () => {
           </div>
         ))}
       </div>
-
       <div className="text-sm text-black font-medium flex items-center gap-3">
-        <Link>CART [ ]</Link>
+        <NavLink
+          to={"/Cart"}
+          onClick={() => setActive("/Cart")}
+          className={`py-[2px] relative overflow-hidden`}
+        >
+          {`CART[ ${1} ]`}
+        </NavLink>
+
         <div className="flex gap-1 items-center cursor-pointer">
-          <span>MENU</span>
-          <IoAddOutline className="text-black" size={20} />
+          <div className="flex gap-1 items-center cursor-pointer">
+            <span>MENU</span>
+            <IoAddOutline className="text-black" size={20} />
+          </div>
         </div>
       </div>
     </nav>

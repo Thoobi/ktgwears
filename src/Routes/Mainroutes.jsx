@@ -5,6 +5,7 @@ import Shop from "../pages/UserScreen/Shop";
 import Stories from "../pages/UserScreen/Stories";
 import Stylechart from "../pages/UserScreen/Stylechart";
 import About from "../pages/UserScreen/About";
+import Cart from "../pages/UserScreen/Cart";
 
 export const mainRoute = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ export const mainRoute = createBrowserRouter([
       {
         path: "/About",
         element: <About />,
+      },
+      {
+        path: "/Cart",
+        element: <Cart />,
       },
     ],
   },

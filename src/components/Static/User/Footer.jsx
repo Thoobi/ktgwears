@@ -1,10 +1,10 @@
-
 const Footer = () => {
   return (
-    <footer>
-      
+    <footer className="w-full px-10">
+      <div></div>
+      <div></div>
     </footer>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;
