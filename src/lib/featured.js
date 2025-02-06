@@ -3,29 +3,39 @@ import hoodie from "../assets/hoodie.png";
 
 const featuredCollection = [
   {
+    id: 1,
     title: "Gorilla Extinct Limited",
     img: hoodie,
-    price: 200,
+    usdPrice: 200,
+    nairaPrice: 100000,
   },
   {
+    id: 2,
     title: "Chicken Extinct Limited",
     img: sweatshirt,
-    price: 100,
+    usdPrice: 150,
+    nairaPrice: 75000,
   },
   {
+    id: 3,
     title: "Turkey Extinct Limited",
     img: hoodie,
-    price: 300,
+    usdPrice: 250,
+    nairaPrice: 125000,
   },
   {
+    id: 4,
     title: "Gorilla Extinct Limited",
-    img: sweatshirt,
-    price: 150,
+    img: hoodie,
+    usdPrice: 200,
+    nairaPrice: 100000,
   },
   {
+    id: 5,
     title: "Chicken Extinct Limited",
     img: hoodie,
-    price: 250,
+    usdPrice: 150,
+    nairaPrice: 75000,
   },
 ];
 
@@ -33,22 +43,18 @@ export const featuredCategory = [
   {
     title: "Hoodies",
     img: hoodie,
-    // price: 200,
   },
   {
     title: "SweatShirts",
     img: sweatshirt,
-    // price: 100,
   },
   {
     title: "Pants",
     img: hoodie,
-    // price: 300,
   },
   {
     title: "T-Shirts",
     img: sweatshirt,
-    // price: 150,
   },
 ];
 export default featuredCollection;

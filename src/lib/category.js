@@ -1,5 +1,8 @@
 export const productCategory = [
   {
+    title: "All",
+  },
+  {
     title: "Hoodies",
   },
   {

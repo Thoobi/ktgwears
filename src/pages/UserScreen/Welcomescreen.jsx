@@ -3,6 +3,7 @@ import FeaturedCollection from "../../components/userComponents/FeaturedCollecti
 import featuredCollection from "../../lib/featured";
 import { useNavigate } from "react-router-dom";
 import { featuredCategory } from "../../lib/featured";
+import { FaCartArrowDown } from "react-icons/fa6";
 
 const Welcomesreen = () => {
   const navigate = useNavigate();
@@ -14,16 +15,19 @@ const Welcomesreen = () => {
         value={"Featured Collections"}
         buttonValue={() => {
           navigate("/Shop");
-          console.log("Button clicked");
         }}
+        buttonContent={"View All"}
+        hoverValue={"Add to Cart"}
+        cartIcon={<FaCartArrowDown />}
       />
       <FeaturedCollection
         featuredItems={featuredCategory}
         value={"Featured Category"}
         buttonValue={() => {
           navigate("/Shop");
-          console.log("Button clicked");
         }}
+        buttonContent={"Shop All"}
+        hoverValue={"View Category"}
       />
     </div>
   );
