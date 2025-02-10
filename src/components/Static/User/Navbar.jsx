@@ -6,13 +6,12 @@ import { useState, useEffect } from "react";
 import useCart from "../../../hooks/useCart";
 
 const Navbar = () => {
-  const { cartLength } = useCart();
+  const { cartLength, setCartActive } = useCart();
   const length = cartLength | 0;
   const location = useLocation();
   const [active, setActive] = useState(() => {
     return localStorage.getItem("activePath") || "";
   });
-  console.log(window.location.pathname === active);
 
   useEffect(() => {
     const handlePopState = () => {
@@ -76,8 +75,13 @@ const Navbar = () => {
         ))}
       </div>
       <div className="text-sm text-black font-medium flex items-center gap-3">
-        <div className={`py-[2px] cursor-pointer`}>{`CART[${length}]`}</div>
-
+        <div
+          className={`py-[2px] cursor-pointer`}
+          onClick={() => {
+            setCartActive(true);
+            console.log("clicked cart");
+          }}
+        >{`CART[${length}]`}</div>
         <div className="flex gap-1 items-center cursor-pointer">
           <div className="flex gap-1 items-center cursor-pointer">
             <span>MENU</span>

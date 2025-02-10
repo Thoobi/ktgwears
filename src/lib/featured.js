@@ -6,8 +6,9 @@ const featuredCollection = [
     id: 1,
     title: "Gorilla Extinct Limited",
     img: hoodie,
-    usdPrice: 200,
+    usdPrice: 300,
     nairaPrice: 100000,
+    quantity: 0,
   },
   {
     id: 2,
@@ -15,6 +16,7 @@ const featuredCollection = [
     img: sweatshirt,
     usdPrice: 150,
     nairaPrice: 75000,
+    quantity: 0,
   },
   {
     id: 3,
@@ -22,6 +24,7 @@ const featuredCollection = [
     img: hoodie,
     usdPrice: 250,
     nairaPrice: 125000,
+    quantity: 0,
   },
   {
     id: 4,
@@ -29,6 +32,7 @@ const featuredCollection = [
     img: hoodie,
     usdPrice: 200,
     nairaPrice: 100000,
+    quantity: 0,
   },
   {
     id: 5,
@@ -36,6 +40,7 @@ const featuredCollection = [
     img: hoodie,
     usdPrice: 150,
     nairaPrice: 75000,
+    quantity: 0,
   },
 ];
 

@@ -1,75 +1,48 @@
 import PropTypes from "prop-types";
 import stroke from "../../assets/arrow2.svg";
-import { useState, useEffect } from "react";
 import useCart from "../../hooks/useCart";
-// import { ToastContainer, toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const FeaturedCollection = ({
   featuredItems,
   value,
-  buttonValue,
   hoverValue,
   buttonContent,
   cartIcon,
+  buttonValue,
 }) => {
-  const { addToCart, ToastContainer } = useCart();
-  const [item, setItem] = useState("");
-  const [category, setCategory] = useState("");
-  const [cartItems, setCartItems] = useState(() => {
-    const localData = sessionStorage.getItem("cartItems");
-    return localData ? JSON.parse(localData) : null;
-  });
-  const [cartLength, setCartLength] = useState(0);
+  const navigate = useNavigate();
+  const { addToCart } = useCart();
 
-  // const handleClick = (value) => {
-  //   setItem(value);
-  //   setCartItems((prevCart) => {
-  //     const prevCartItems = Array.isArray(prevCart) ? prevCart : [];
-  //     if (prevCartItems.includes(value)) {
-  //       const updatedCart = prevCartItems;
-  //       sessionStorage.setItem("cartItems", JSON.stringify(updatedCart));
-  //       setCartLength(updatedCart.length);
-  //       return updatedCart;
-  //     } else {
-  //       const updatedCart = [...prevCartItems, value];
-  //       sessionStorage.setItem("cartItems", JSON.stringify(updatedCart));
-  //       setCartLength(updatedCart.length);
-  //       return updatedCart;
-  //     }
-  //   });
-  // };
+  const handleClick = (value) => {
+    navigate(`/Shop/${value}`);
+  };
 
-  useEffect(() => {
-    console.log(item);
-    console.log(category);
-    console.log(cartItems);
-    console.log(cartLength);
-  }, [item, category, cartItems, cartLength]);
-
-  const handleCategory = (value) => {
+  const handleCart = (value) => {
     addToCart(value);
   };
 
   return (
     <section className="w-full mt-20 border-t-[1px] border-t-black py-2 flex items-center justify-center flex-col">
-      <ToastContainer />
       <div className="flex justify-between w-full items-center py-5">
         <div className="flex justify-between w-[26rem] items-center">
           <h2 className="text-4xl">{value}</h2>
         </div>
-        <button
-          onClick={buttonValue}
-          className="border-[1px] border-black h-[48px] group w-[180px] text-black text-center text-lg px-2 flex items-center justify-center gap-5 rounded-full"
-        >
-          <span>{buttonContent}</span>
-          <span className="group-hover:translate-x-1 duration-300 ease-in ">
-            <img
-              src={stroke}
-              alt="an image of an arrow"
-              className="h-full w-full"
-            />
-          </span>
-        </button>
+        {buttonValue && (
+          <button
+            onClick={buttonValue}
+            className="border-[1px] border-black h-[48px] group w-[180px] text-black text-center text-lg px-2 flex items-center justify-center gap-5 rounded-full"
+          >
+            <span>{buttonContent}</span>
+            <span className="group-hover:translate-x-1 duration-300 ease-in ">
+              <img
+                src={stroke}
+                alt="an image of an arrow"
+                className="h-full w-full"
+              />
+            </span>
+          </button>
+        )}
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-5 mt-10 max-md:px-5 px-10">
         {featuredItems.map((item, id) => (
@@ -84,17 +57,17 @@ const FeaturedCollection = ({
                 className="object-cover"
               />
               <div className="hidden absolute top-0 left-0 w-full h-full group-hover:flex bg-gray-200 bg-opacity-30 backdrop-blur-sm items-center justify-center transition-all duration-1000">
-                {featuredItems === "featuredCategory" ? (
+                {value === "Featured Category" ? (
                   <button
                     className="border-[1px] border-black h-[48px] group w-[200px] text-black text-center text-lg px-2 flex items-center justify-center gap-5 bg-black"
-                    onClick={() => handleClick(item)}
+                    onClick={() => handleClick(item.title)}
                   >
-                    <span>{item.title}</span>
+                    <span className="text-white">{hoverValue}</span>
                   </button>
                 ) : (
                   <button
-                    className="border-[1px] border-black h-[48px] group1 w-[200px] text-white text-center text-lg px-2 flex items-center justify-center gap-5 bg-black rounded-lg"
-                    onClick={() => handleCategory(item)}
+                    className="border-[1px] border-black h-[48px] group1 w-[200px] text-white text-center text-lg px-2 flex items-center justify-center gap-5 bg-black"
+                    onClick={() => handleCart(item)}
                   >
                     <span className="flex items-center gap-2 text-base font-light">
                       {hoverValue}

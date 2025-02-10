@@ -12,7 +12,7 @@ const Welcomesreen = () => {
       <Header />
       <FeaturedCollection
         featuredItems={featuredCollection}
-        value={"Featured Collections"}
+        value="Featured Collections"
         buttonValue={() => {
           navigate("/Shop");
         }}
@@ -22,10 +22,7 @@ const Welcomesreen = () => {
       />
       <FeaturedCollection
         featuredItems={featuredCategory}
-        value={"Featured Category"}
-        buttonValue={() => {
-          navigate("/Shop");
-        }}
+        value="Featured Category"
         buttonContent={"Shop All"}
         hoverValue={"View Category"}
       />

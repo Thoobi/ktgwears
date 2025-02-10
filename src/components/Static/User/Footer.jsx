@@ -33,9 +33,9 @@ const Footer = () => {
           <FooterCard
             header="Company"
             link1="About Us"
-            link2="Contact Us"
-            link3="Privacy Policy"
-            link4="Shipping and Returns"
+            link2="Refund Policy"
+            link3="Shipping Policy"
+            link4="Terms of Service"
           />
           <div className="flex gap-5 py-10 mt-5 px-5">
             <div className="flex items-start gap-5">
