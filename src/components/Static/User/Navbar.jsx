@@ -1,4 +1,5 @@
-import ktgimg from "../../../assets/ktg-text-logo.png";
+import ktgimg from "../../../assets/ktg-logo.svg";
+import ktgDesktop from "../../../assets/ktg-text-logo.png";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { navcomponent } from "../../../lib/navbar";
 import { IoAddOutline } from "react-icons/io5";
@@ -40,16 +41,25 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="w-full bg-white/[.99] border-b-[1px] border-b-black/[.4] flex items-center px-5 py-3 fixed top-0 z-20 justify-between pt-5">
+    <nav className="w-full bg-white/[.99] border-b-[1px] border-b-gray-400 flex items-center px-5 py-3 fixed top-0 z-20 justify-between pt-5 font-clash max-lg:items-center max-lg:h-[60px] max-lg:py-0">
       <Link
         href={"/"}
         onClick={handleLogoClick}
-        className="flex gap-2 items-center"
+        className="flex gap-2 items-center justify-center"
       >
-        <img src={ktgimg} alt="The logo of the brand KTG wears" />
+        <img
+          src={ktgDesktop}
+          alt="The logo of the brand KTG wears"
+          className="max-lg:hidden"
+        />
+        <img
+          src={ktgimg}
+          alt="The logo of the brand KTG wears"
+          className="lg:hidden max-lg:w-[25px]"
+        />
       </Link>
 
-      <div className="flex flex-row gap-8">
+      <div className="flex flex-row gap-8 max-lg:hidden">
         {navcomponent.map((items, index) => (
           <div key={index} className="text-sm text-black font-medium group">
             <NavLink
@@ -57,7 +67,7 @@ const Navbar = () => {
               onClick={() => setActive(items.path)}
               className={`py-[2px] relative overflow-hidden`}
             >
-              <div className="">
+              <div className="font-clash">
                 {active === items.path
                   ? `[ ${items.title} ]`
                   : `${items.title}`}
@@ -79,13 +89,14 @@ const Navbar = () => {
           className={`py-[2px] cursor-pointer`}
           onClick={() => {
             setCartActive(true);
-            console.log("clicked cart");
           }}
-        >{`CART[${length}]`}</div>
+        >
+          {`CART`} <span className="text-black font-semibold">[{length}]</span>
+        </div>
         <div className="flex gap-1 items-center cursor-pointer">
-          <div className="flex gap-1 items-center cursor-pointer">
+          <div className="flex items-center cursor-pointer justify-center h-full">
             <span>MENU</span>
-            <IoAddOutline className="text-black" size={20} />
+            <IoAddOutline className="text-black" size={16} />
           </div>
         </div>
       </div>

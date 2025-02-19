@@ -4,8 +4,10 @@ import PropTypes from "prop-types";
 import { Toaster, toast } from "sonner";
 
 const CartProvider = ({ children }) => {
+  const size = ["S", "M", "L", "XL"];
   const [cartActive, setCartActive] = useState(false);
   const [usdPrice, setUsdPrice] = useState(false);
+  const [selectedSize, setSelectedSize] = useState("");
   const [loading, setLoading] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartLength, setCartLength] = useState(0);
@@ -27,36 +29,52 @@ const CartProvider = ({ children }) => {
     }
   }, []);
 
-  const addToCart = useCallback((value) => {
-    setLoading(true);
-    setCartItems((prevCart) => {
-      const prevCartItems = Array.isArray(prevCart) ? prevCart : [];
-      const itemExists = prevCartItems.some((item) => item.id === value.id);
+  const addToCart = useCallback(
+    (value) => {
+      setCartItems((prevCart) => {
+        const prevCartItems = Array.isArray(prevCart) ? prevCart : [];
 
-      if (itemExists) {
-        toast.warning("Item already in cart 🥸");
-        return prevCartItems;
-      }
-      const updatedCart = [...prevCartItems, { ...value, quantity: 1 }];
-      setLoading(false);
-      toast.success("Item added to cart 🤩");
-      return updatedCart;
-    });
-  }, []);
+        if (selectedSize === "SELECT A SIZE" || !selectedSize) {
+          toast.error("Please select a size first");
+          return prevCartItems;
+        }
+
+        const existingProductWithSameSize = prevCartItems.find(
+          (item) => item.id === value.id && item.size === selectedSize
+        );
+
+        if (existingProductWithSameSize) {
+          toast.error(
+            `This item in size ${selectedSize} is already in your cart!`
+          );
+          // return prevCartItems;
+        }
+        toast.success(`Item added in size ${selectedSize} to cart 🤩`);
+        return [
+          ...prevCartItems,
+          { ...value, quantity: 1, size: selectedSize },
+        ];
+      });
+      setSelectedSize("SELECT A SIZE");
+    },
+    [selectedSize]
+  );
 
   const removeFromCart = useCallback((value) => {
     setCartItems((prevCart) => {
-      if (!prevCart || prevCart.length < 1) {
+      if (!prevCart || prevCart.length < 1 || !value.size || !value.id) {
         sessionStorage.removeItem("cartItems");
         toast.error("Cart is empty");
         setCartLength(0);
         return [];
       }
 
-      const updatedCart = prevCart.filter((item) => item.id !== value.id);
+      const updatedCart = prevCart.filter(
+        (item) => !(item.id === value.id && item.size === value.size)
+      );
       toast.success("Item removed from cart");
 
-      if (updatedCart.length === 0) {
+      if (updatedCart.length < 1) {
         sessionStorage.removeItem("cartItems");
         setCartLength(0);
       } else {
@@ -70,7 +88,9 @@ const CartProvider = ({ children }) => {
   const increaseQuantity = useCallback((value) => {
     setCartItems((prevCart) => {
       const updatedCart = prevCart.map((item) =>
-        item.id === value.id ? { ...item, quantity: item.quantity + 1 } : item
+        item.id === value.id && item.size === value.size
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
       );
       return updatedCart;
     });
@@ -82,30 +102,32 @@ const CartProvider = ({ children }) => {
     } else {
       setCartItems((prevCart) => {
         const updatedCart = prevCart.map((item) =>
-          item.id === value.id ? { ...item, quantity: item.quantity - 1 } : item
+          item.id === value.id && item.size === value.size
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
         );
         return updatedCart;
       });
     }
   }, []);
 
-  const calculateTotal = useCallback((items, isUSD) => {
+  const calculateTotal = useCallback((items) => {
     return items.reduce((total, item) => {
-      const price = isUSD ? item.usdPrice : item.nairaPrice;
+      const price = item.nairaPrice;
       return total + price * (item.quantity || 1);
     }, 0);
   }, []);
 
   useEffect(() => {
     if (cartItems.length > 0) {
-      setCartTotal(calculateTotal(cartItems, usdPrice));
+      setCartTotal(calculateTotal(cartItems));
       setCartLength(cartItems.length);
       sessionStorage.setItem("cartItems", JSON.stringify(cartItems));
     } else {
       setCartTotal(0);
       setCartLength(0);
     }
-  }, [cartItems, usdPrice, calculateTotal]);
+  }, [cartItems, calculateTotal]);
 
   const clearCart = useCallback(() => {
     setCartItems([]);
@@ -126,11 +148,25 @@ const CartProvider = ({ children }) => {
     increaseQuantity,
     decreaseQuantity,
     cartTotal,
+    selectedSize,
+    setSelectedSize,
+    size,
   };
 
   return (
     <CartContext.Provider value={value}>
-      <Toaster position="bottom-left" expand={true} richColors={true} />
+      <Toaster
+        position="top-left"
+        toastOptions={{
+          style: {
+            fontSize: "0.9rem",
+            fontWeight: "light",
+            fontFamily: "ClashGrotesk",
+            textAlign: "center",
+          },
+        }}
+        richColors={true}
+      />
       {children}
     </CartContext.Provider>
   );

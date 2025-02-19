@@ -9,18 +9,18 @@ export const productCategory = [
     title: "SweatShirts",
   },
   {
-    title: "Pants",
+    title: "Cargo Pants",
   },
   {
-    title: "Jorts",
-  },
-  {
-    title: "T-Shirts",
+    title: "Polo",
   },
   {
     title: "Joggers",
   },
   {
-    title: "Shorts",
+    title: "Two Piece",
+  },
+  {
+    title: "Essentials",
   },
 ];

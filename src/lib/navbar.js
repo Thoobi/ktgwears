@@ -8,10 +8,6 @@ export const navcomponent = [
     path: "/Stories",
   },
   {
-    title: "STYLEFOLIO",
-    path: "/Stylefolio",
-  },
-  {
     title: "ABOUT",
     path: "/About",
   },

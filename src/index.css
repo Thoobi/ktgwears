@@ -2,56 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "ClashGrotesk";
+  src: url("./assets/Fonts/ClashGrotesk/Fonts/TTF/ClashGrotesk-Variable.ttf")
+    format("truetype");
+  font-weight: 200 300 400 500 600 700 800;
+  font-display: swap;
+}
+
 @keyframes spin-slow {
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 .hover\:animate-spin-slow:hover {
-    animation-name: spin-slow;
-    animation-duration: 900ms;
-    animation-iteration-count: 1;
-    animation-delay: 1ms;
-    animation-timing-function: ease-in-out;
+  animation-name: spin-slow;
+  animation-duration: 900ms;
+  animation-iteration-count: 1;
+  animation-delay: 1ms;
+  animation-timing-function: ease-in-out;
 }
 
 @keyframes bounce {
-        from {
-            transform: translate3d(0, 0, 0);
-        }
-
-        to {
-            transform: translate3d(0, 10px, 0);
-        }
-    }
-  
-  .bounce {
-    animation: bounce 2s;
-    animation-direction: alternate;
-    animation-timing-function: cubic-bezier(0.4, 0.03, 1, 0.9);
-    animation-iteration-count: 5;
+  from {
+    transform: translate3d(0, 0, 0);
   }
 
-  .rotating-curved-text {
-    -webkit-animation: spin 15s linear 4;
-    -moz-animation: spin 10s linear 4;
-    animation: spin 10s linear 4;
+  to {
+    transform: translate3d(0, 10px, 0);
   }
-  
-  @-moz-keyframes spin {
-    100% {
-      -moz-transform: rotate(360deg);
-    }
+}
+
+.bounce {
+  animation: bounce 2s;
+  animation-direction: alternate;
+  animation-timing-function: cubic-bezier(0.4, 0.03, 1, 0.9);
+  animation-iteration-count: 5;
+}
+
+.rotating-curved-text {
+  -webkit-animation: spin 15s linear 4;
+  -moz-animation: spin 10s linear 4;
+  animation: spin 10s linear 4;
+}
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
   }
-  @-webkit-keyframes spin {
-    100% {
-      -webkit-transform: rotate(360deg);
-    }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
   }
-  @keyframes spin {
-    100% {
-      -webkit-transform: rotate(360deg);
-      transform: rotate(360deg);
-    }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  
+}

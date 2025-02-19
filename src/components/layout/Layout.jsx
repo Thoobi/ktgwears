@@ -1,18 +1,12 @@
 import { Outlet } from "react-router-dom";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Navbar from "../Static/User/Navbar";
 import Footer from "../Static/User/Footer";
-import Cart from "../Cart";
+import Cart from "../shared/Cart";
 import useUser from "../../hooks/useCart";
 
 const Layout = () => {
   const { cartActive, setCartActive } = useUser();
-  const overlayRef = useRef(null);
-  const handleClick = (e) => {
-    if (overlayRef.current && !overlayRef.current.contains(e.target)) {
-      setCartActive(false);
-    }
-  };
   useEffect(() => {
     if (cartActive) {
       document.body.style.overflow = "hidden";
@@ -21,13 +15,6 @@ const Layout = () => {
     }
   }, [cartActive]);
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClick);
-    return () => {
-      document.removeEventListener("mousedown", handleClick);
-    };
-  }, []);
-
   return (
     <div>
       <Navbar />
@@ -35,8 +22,13 @@ const Layout = () => {
       <Footer />
       {cartActive && (
         <>
-          <div className="fixed inset-0 bg-black/5 z-40" />
-          <div className="fixed top-[3.6rem] right-0 h-screen z-50 shadow-xl">
+          <div
+            className="fixed inset-0 bg-black/5 z-40 cursor-pointer transition-opacity duration-300 ease-in-out max-lg:hidden"
+            onClick={() => setCartActive(false)}
+          />
+          <div
+            className={`fixed top-0 right-0 h-screen z-[80] max-lg:w-full max-lg:h-full shadow-xl transform transition-transform`}
+          >
             <Cart />
           </div>
         </>
