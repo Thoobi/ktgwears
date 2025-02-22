@@ -47,7 +47,6 @@ const CartProvider = ({ children }) => {
           toast.error(
             `This item in size ${selectedSize} is already in your cart!`
           );
-          // return prevCartItems;
         }
         toast.success(`Item added in size ${selectedSize} to cart 🤩`);
         return [
