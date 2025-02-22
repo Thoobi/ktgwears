@@ -14,7 +14,7 @@ const About = () => {
       </div>
       <div className="w-full flex flex-col gap-10">
         <section className="w-full flex flex-col gap-10 max-lg:gap-2">
-          <h2 className="text-5xl text-black max-lg:text-3xl max-lg:text-center">
+          <h2 className="text-5xl font-medium text-black max-lg:text-3xl max-lg:text-center">
             Our Mission
           </h2>
           <div className="w-full flex items-center flex-row gap-10 max-lg:flex-col max-lg:justify-between max-lg:gap-3">
@@ -34,7 +34,7 @@ const About = () => {
         </section>
         <span className="w-full border-t-[1px] border-t-gray-400 border-dashed"></span>
         <section className="w-full flex flex-col gap-10 max-lg:gap-2">
-          <h2 className="text-5xl text-black max-lg:text-3xl max-lg:text-center">
+          <h2 className="text-5xl font-medium text-black max-lg:text-3xl max-lg:text-center">
             Our Vision
           </h2>
           <div className="w-full flex items-center flex-row-reverse gap-10 max-lg:flex-col max-lg:justify-between max-lg:gap-3">

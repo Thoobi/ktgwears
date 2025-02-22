@@ -10,7 +10,6 @@ export default function SignupForm() {
 
   const emailSchema = Yup.string()
     .email("Invalid email")
-    .required("Required")
     .min(6, "Email is too short")
     .max(40, "Email is too long")
     .matches(emailRegExp, {
@@ -20,7 +19,7 @@ export default function SignupForm() {
     .required("Email is required");
 
   const passwordSchema = Yup.string()
-    .required("Required")
+    .required("Password is required")
     .min(6, "Password is too short")
     .matches(passwordRegExp, {
       message:
@@ -33,7 +32,7 @@ export default function SignupForm() {
       message: "Invalid phone number",
       excludeEmptyString: true,
     })
-    .required("Required")
+    .required("Phone number is required")
     .min(11, "Phone number is not complete");
 
   const formik = useFormik({
@@ -51,8 +50,8 @@ export default function SignupForm() {
     validationSchema: Yup.object({
       email: emailSchema,
       password: passwordSchema,
-      firstName: Yup.string().required("Required"),
-      lastName: Yup.string().required("Required"),
+      firstName: Yup.string().required("Firstname is required"),
+      lastName: Yup.string().required("Lastname is required"),
       PhoneNumber: phoneSchema,
     }),
   });
@@ -60,14 +59,17 @@ export default function SignupForm() {
     <div>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-5 border-[1px] border-gray-400 p-5 w-[400px] m-auto justify-center items-center"
+        className="flex flex-col gap-5 border-2 border-gray-700 px-5 py-10 w-[500px] m-auto justify-center items-center"
       >
-        <h1 className="text-5xl font-normal">Signup</h1>
+        <h1 className="text-4xl font-semibold ">Signup</h1>
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <label>First Name</label>
+            <label htmlFor="firstName" className="text-base font-medium">
+              First Name
+            </label>
             <input
               type="text"
+              placeholder="First Name"
               name="firstName"
               value={formik.values.firstName}
               onChange={formik.handleChange}
@@ -75,15 +77,18 @@ export default function SignupForm() {
               className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
             />
             {formik.errors.firstName && (
-              <div className="text-red-500 font-medium text-sm">
+              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
                 {formik.errors.firstName}
               </div>
             )}
           </div>
           <div className="flex flex-col">
-            <label>Last Name</label>
+            <label htmlFor="lastName" className="text-base font-medium">
+              Last Name
+            </label>
             <input
               type="text"
+              placeholder="Last Name"
               name="lastName"
               value={formik.values.lastName}
               onChange={formik.handleChange}
@@ -91,15 +96,18 @@ export default function SignupForm() {
               className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
             />
             {formik.errors.lastName && (
-              <div className="text-red-500 font-medium text-sm">
+              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
                 {formik.errors.lastName}
               </div>
             )}
           </div>
           <div className="flex flex-col">
-            <label>Phone Number</label>
+            <label htmlFor="phoneNumber" className="text-base font-medium">
+              Phone Number
+            </label>
             <input
               type="text"
+              placeholder="Phone Number"
               name="PhoneNumber"
               value={formik.values.PhoneNumber}
               onChange={formik.handleChange}
@@ -107,15 +115,18 @@ export default function SignupForm() {
               className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
             />
             {formik.errors.PhoneNumber && (
-              <div className="text-red-500 font-medium text-sm">
+              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
                 {formik.errors.PhoneNumber}
               </div>
             )}
           </div>
           <div className="flex flex-col">
-            <label>Email</label>
+            <label htmlFor="email" className="text-base font-medium">
+              Email
+            </label>
             <input
               type="email"
+              placeholder="Email"
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
@@ -123,15 +134,18 @@ export default function SignupForm() {
               className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
             />
             {formik.errors.email && (
-              <div className="text-red-500 font-medium text-sm">
+              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
                 {formik.errors.email}
               </div>
             )}
           </div>
           <div className="flex flex-col">
-            <label>Password</label>
+            <label htmlFor="password" className="text-base font-medium">
+              Password
+            </label>
             <input
               type="password"
+              placeholder="Password"
               name="password"
               value={formik.values.password}
               autoComplete="on"
@@ -140,7 +154,7 @@ export default function SignupForm() {
               className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
             />
             {formik.touched.password && formik.errors.password && (
-              <div className="text-red-500 font-medium text-xs mt-1">
+              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
                 {formik.errors.password}
               </div>
             )}

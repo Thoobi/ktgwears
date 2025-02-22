@@ -8,7 +8,7 @@ function LoginForm() {
   const emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
 
   const passwordSchema = Yup.string()
-    .required("Required")
+    .required("Password is required")
     .min(6, "Password is too short")
     .matches(passwordRegExp, {
       message:
@@ -18,7 +18,7 @@ function LoginForm() {
 
   const emailSchema = Yup.string()
     .email("Invalid email")
-    .required("Required")
+    .required("Email is required")
     .matches(emailRegExp, {
       message: "Invalid email",
       excludeEmptyString: true,
@@ -45,12 +45,14 @@ function LoginForm() {
       <form
         onSubmit={formik.handleSubmit}
         className="
-      flex flex-col gap-5 border-[1px] border-gray-400 p-5 w-[400px] m-auto justify-center items-center"
+      flex flex-col gap-5 border-2 border-gray-700 px-5 py-10 w-[450px] m-auto justify-center items-center"
       >
-        <h1 className="text-5xl font-normal ">Login</h1>
+        <h1 className="text-4xl font-semibold ">Login</h1>
         <div className="flex flex-col gap-3">
           <div className="flex flex-col">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email" className="text-base font-medium">
+              Email
+            </label>
             <input
               type="email"
               name="email"
@@ -61,13 +63,15 @@ function LoginForm() {
               className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
             />
             {formik.touched.email && formik.errors.email && (
-              <div className="text-red-500 font-medium text-xs mt-1">
+              <div className="text-red-500 font-medium text-xs mt-1 before:content-['*'] before:text-red-500">
                 {formik.errors.email}
               </div>
             )}
           </div>
           <div className="flex flex-col w-full">
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password" className="text-base font-medium">
+              Password
+            </label>
             <input
               type="password"
               name="password"
@@ -80,13 +84,13 @@ function LoginForm() {
             />
 
             {formik.errors.password ? (
-              <div className="text-red-500 text-xs font-medium mt-1">
+              <div className="text-red-500 text-xs font-medium mt-1 before:content-['*'] before:text-red-500">
                 {formik.errors.password}
               </div>
             ) : null}
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <button
             type="submit"
             className="bg-black rounded-md hover:bg-black/90 text-white text-lg h-[45px] w-[300px]"
@@ -95,7 +99,7 @@ function LoginForm() {
           </button>
           <span className="flex flex-row justify-center items-center gap-2">
             <hr />
-            or
+            <span className="font-medium text-base">or</span>
             <hr />
           </span>
           <button
