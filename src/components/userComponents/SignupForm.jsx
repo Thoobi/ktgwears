@@ -3,10 +3,12 @@ import * as Yup from "yup";
 import { toast } from "sonner";
 
 export default function SignupForm() {
-  const phoneRegExp =
-    /^(\+?\d{1,3}[-.\s]?)?(\(?\d{2,4}\)?[-.\s]?)?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,4}$/;
   const emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/;
   const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
+
+  const confirmpasswordSchema = Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm password is required");
 
   const emailSchema = Yup.string()
     .email("Invalid email")
@@ -27,21 +29,11 @@ export default function SignupForm() {
       excludeEmptyString: true,
     });
 
-  const phoneSchema = Yup.string()
-    .matches(phoneRegExp, {
-      message: "Invalid phone number",
-      excludeEmptyString: true,
-    })
-    .required("Phone number is required")
-    .min(11, "Phone number is not complete");
-
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
-      PhoneNumber: "",
       email: "",
       password: "",
+      confirmpassword: "",
     },
     onSubmit: (values, initialValues) => {
       toast.success(`Signup successful \n ${JSON.stringify(values)}`);
@@ -50,76 +42,23 @@ export default function SignupForm() {
     validationSchema: Yup.object({
       email: emailSchema,
       password: passwordSchema,
-      firstName: Yup.string().required("Firstname is required"),
-      lastName: Yup.string().required("Lastname is required"),
-      PhoneNumber: phoneSchema,
+      confirmpassword: confirmpasswordSchema,
     }),
   });
   return (
     <div>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-5 border-2 border-gray-700 px-5 py-10 w-[500px] m-auto justify-center items-center"
+        className="flex flex-col gap-5 border-2 border-gray-600 px-5 py-10 w-[450px] m-auto justify-center items-center"
       >
-        <h1 className="text-4xl font-semibold ">Signup</h1>
+        <span className="w-full text-start px-10 flex gap-1 flex-col">
+          <h1 className="text-4xl font-medium ">Signup</h1>
+          <p>
+            Create an account with us to enjoy the best shopping experience 💐
+          </p>
+        </span>
+
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col">
-            <label htmlFor="firstName" className="text-base font-medium">
-              First Name
-            </label>
-            <input
-              type="text"
-              placeholder="First Name"
-              name="firstName"
-              value={formik.values.firstName}
-              onChange={formik.handleChange}
-              {...formik.getFieldProps("firstName")}
-              className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
-            />
-            {formik.errors.firstName && (
-              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
-                {formik.errors.firstName}
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="lastName" className="text-base font-medium">
-              Last Name
-            </label>
-            <input
-              type="text"
-              placeholder="Last Name"
-              name="lastName"
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              {...formik.getFieldProps("lastName")}
-              className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
-            />
-            {formik.errors.lastName && (
-              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
-                {formik.errors.lastName}
-              </div>
-            )}
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="phoneNumber" className="text-base font-medium">
-              Phone Number
-            </label>
-            <input
-              type="text"
-              placeholder="Phone Number"
-              name="PhoneNumber"
-              value={formik.values.PhoneNumber}
-              onChange={formik.handleChange}
-              {...formik.getFieldProps("PhoneNumber")}
-              className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
-            />
-            {formik.errors.PhoneNumber && (
-              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
-                {formik.errors.PhoneNumber}
-              </div>
-            )}
-          </div>
           <div className="flex flex-col">
             <label htmlFor="email" className="text-base font-medium">
               Email
@@ -158,6 +97,27 @@ export default function SignupForm() {
                 {formik.errors.password}
               </div>
             )}
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="confirmpassword" className="text-base font-medium">
+              Confirm password
+            </label>
+            <input
+              type="password"
+              placeholder="Confirm password"
+              name="confirmpassword"
+              value={formik.values.confirmpassword}
+              autoComplete="on"
+              onChange={formik.handleChange}
+              {...formik.getFieldProps("confirmpassword")}
+              className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
+            />
+            {formik.touched.confirmpassword &&
+              formik.errors.confirmpassword && (
+                <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
+                  {formik.errors.confirmpassword}
+                </div>
+              )}
           </div>
         </div>
         <button

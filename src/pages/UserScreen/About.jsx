@@ -1,4 +1,3 @@
-import KTGLogo from "../../assets/KTG-Logo.svg";
 import Mission from "../../assets/mission1.jpg";
 import Vision from "../../assets/mission2.jpg";
 
@@ -6,11 +5,9 @@ const About = () => {
   return (
     <div className="w-full px-4 py-8 space-y-12 mt-14 font-clash">
       <div className="w-full flex justify-center items-center  gap-2">
-        {/* <img src={KTGLogo} alt="KTG Logo" className="w-[20px]" /> */}
         <h1 className="text-7xl max-lg:text-5xl text-center text-black font-normal">
           Our Brand
         </h1>
-        {/* <img src={KTGLogo} alt="KTG Logo" className="w-[20px]" /> */}
       </div>
       <div className="w-full flex flex-col gap-10">
         <section className="w-full flex flex-col gap-10 max-lg:gap-2">

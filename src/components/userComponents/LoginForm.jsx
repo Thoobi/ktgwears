@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "sonner";
-import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
 
 function LoginForm() {
   const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
@@ -45,9 +45,21 @@ function LoginForm() {
       <form
         onSubmit={formik.handleSubmit}
         className="
-      flex flex-col gap-5 border-2 border-gray-700 px-5 py-10 w-[450px] m-auto justify-center items-center"
+      flex flex-col gap-5 border-2 border-gray-600 px-5 py-10 w-[450px] m-auto justify-center items-center"
       >
-        <h1 className="text-4xl font-semibold ">Login</h1>
+        <span className="w-full text-start px-10 flex gap-1 flex-col">
+          <h1 className="text-4xl font-medium w-full text-start">Login</h1>
+          <p className="flex gap-1 flex-col">
+            Welcome back! Login to your account to continue shopping with us 🌟
+            <Link>
+              <span className="text-blue-500 font-medium text-base underline">
+                {" "}
+                Forgot password?
+              </span>
+            </Link>
+          </p>
+        </span>
+
         <div className="flex flex-col gap-3">
           <div className="flex flex-col">
             <label htmlFor="email" className="text-base font-medium">
@@ -63,7 +75,7 @@ function LoginForm() {
               className="border-2 border-gray-500 h-[45px] p-2 w-[320px] focus:outline-none"
             />
             {formik.touched.email && formik.errors.email && (
-              <div className="text-red-500 font-medium text-xs mt-1 before:content-['*'] before:text-red-500">
+              <div className="text-red-500 font-medium text-xs before:content-['*'] before:text-red-500">
                 {formik.errors.email}
               </div>
             )}
@@ -84,7 +96,7 @@ function LoginForm() {
             />
 
             {formik.errors.password ? (
-              <div className="text-red-500 text-xs font-medium mt-1 before:content-['*'] before:text-red-500">
+              <div className="text-red-500 text-xs font-medium before:content-['*'] before:text-red-500">
                 {formik.errors.password}
               </div>
             ) : null}
@@ -96,18 +108,6 @@ function LoginForm() {
             className="bg-black rounded-md hover:bg-black/90 text-white text-lg h-[45px] w-[300px]"
           >
             Login
-          </button>
-          <span className="flex flex-row justify-center items-center gap-2">
-            <hr />
-            <span className="font-medium text-base">or</span>
-            <hr />
-          </span>
-          <button
-            type="submit"
-            className="bg-black text-white text-lg h-[45px] w-[300px] hover:bg-black/90 rounded-md flex gap-2 justify-center items-center"
-          >
-            <FcGoogle className="inline-block" />
-            Continue with google
           </button>
         </div>
       </form>
