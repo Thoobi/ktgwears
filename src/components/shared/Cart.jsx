@@ -56,7 +56,7 @@ const Cart = () => {
                     <h2 className="text-base font-normal text-gray-800">
                       {item.title}
                     </h2>
-                    <div className="flex flex-row items-center justify-between">
+                    <div className="flex flex-row items-center justify-between max-lg:pr-2">
                       <p className="text-base font-medium text-gray-800">{`₦${item.nairaPrice}`}</p>
                       <p className="text-base font-medium text-gray-800">
                         {item.size}

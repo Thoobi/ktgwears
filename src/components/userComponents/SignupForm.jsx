@@ -49,9 +49,9 @@ export default function SignupForm() {
     <div>
       <form
         onSubmit={formik.handleSubmit}
-        className="flex flex-col gap-5 border-2 border-gray-600 px-5 py-10 w-[450px] m-auto justify-center items-center"
+        className="flex flex-col gap-5 border-2 border-gray-600 px-5 py-10 w-[450px] max-lg:w-full m-auto justify-center items-center max-lg:py-5 max-lg:border-[1px] max-lg:border-black"
       >
-        <span className="w-full text-start px-10 flex gap-1 flex-col">
+        <span className="w-full text-start px-10 flex gap-1 flex-col max-lg:px-1">
           <h1 className="text-4xl font-medium ">Signup</h1>
           <p>
             Create an account with us to enjoy the best shopping experience 💐

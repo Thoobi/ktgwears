@@ -10,6 +10,9 @@ export default function ProductPreview() {
   const { id } = useParams();
   const { addToCart, selectedSize, setSelectedSize, size } = useCart();
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     const selectedProduct = featuredCollection.find(
       (product) => product.id === parseInt(id)
     );

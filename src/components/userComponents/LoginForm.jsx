@@ -45,9 +45,9 @@ function LoginForm() {
       <form
         onSubmit={formik.handleSubmit}
         className="
-      flex flex-col gap-5 border-2 border-gray-600 px-5 py-10 w-[450px] m-auto justify-center items-center"
+      flex flex-col gap-5 border-2 border-gray-700 px-5 py-10 w-[450px] max-lg:w-full m-auto justify-center items-center max-lg:border-[1px] max-lg:border-black"
       >
-        <span className="w-full text-start px-10 flex gap-1 flex-col">
+        <span className="w-full text-start px-10 flex gap-1 flex-col max-lg:px-1">
           <h1 className="text-4xl font-medium w-full text-start">Login</h1>
           <p className="flex gap-1 flex-col">
             Welcome back! Login to your account to continue shopping with us 🌟

@@ -3,9 +3,13 @@ import FeaturedCollection from "../../components/userComponents/FeaturedCollecti
 import featuredCollection from "../../lib/featured";
 import { useNavigate } from "react-router-dom";
 import { featuredCategory } from "../../lib/featured";
+import { useEffect } from "react";
 
 const Welcomesreen = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div className="mt-20 px-5 w-full font-clash">
       <Header />
