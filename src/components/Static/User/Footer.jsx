@@ -4,15 +4,8 @@ import FooterCard from "../../userComponents/FooterCard";
 
 const Footer = () => {
   return (
-    <footer className="w-full mt-20 font-clash">
-      <div className="flex items-start w-full px-5 py-5 max-lg:py-2 max-lg:flex-col max-lg:items-center">
-        <span className="text-4xl w-full text-gray-700 max-lg:text-2xl">
-          Elevate your unique style and embrace your royalty with KTGwears. Our
-          streetwear inspires you to stand out.
-        </span>
-      </div>
-      <div className="flex flex-col gap-5 px-5">
-        <span className="w-full border-t-[1px] border-t-gray-400"></span>
+    <footer className="w-full font-clash pt-20">
+      <div className="flex flex-col gap-5 max-lg:px-2 ">
         <div className="flex gap-4 w-full items-center justify-between max-lg:flex-col max-lg:items-center max-lg:px-2 max-lg:gap-13">
           <div className="text-[15rem]/[130px] font-medium flex flex-col items-center justify-start px-5 py-2 gap-5 text-black mr-20 max-lg:mr-0 max-lg:w-full max-lg:text-center max-lg:text-[10rem] max-lg:font-semibold">
             <div className="">
@@ -39,7 +32,7 @@ const Footer = () => {
               <FooterCard
                 header="Company"
                 link1="About Us"
-                href1="/about"
+                href1="/About"
                 link2="Refund & Return"
                 href2="/refund"
                 link3="Shipping Policy"

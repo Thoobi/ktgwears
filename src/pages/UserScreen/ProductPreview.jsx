@@ -3,6 +3,7 @@ import featuredCollection from "../../lib/featured";
 import { useParams, Link } from "react-router-dom";
 import useCart from "../../hooks/useCart";
 import { GoChevronDown } from "react-icons/go";
+import stroke from "../../assets/arrow.svg";
 
 export default function ProductPreview() {
   const [product, setProduct] = useState({});
@@ -23,6 +24,12 @@ export default function ProductPreview() {
   };
   return (
     <div className="w-full h-full flex flex-col justify-center mt-24 gap-10 max-lg:flex-col items-center max-lg:px-5 max-lg:mt-30 max-lg:gap-10 font-clash">
+      <span className="w-full flex justify-start items-center gap-5 px-5">
+        <Link to="/" className="text-2xl text-black flex gap-4">
+          <img src={stroke} alt="" />
+          back
+        </Link>
+      </span>
       <h1 className="text-5xl text-black max-lg:text-2xl">Product Details</h1>
       <div className="w-full flex justify-center items-center gap-10 max-lg:gap-5 max-lg:flex-col">
         <div className="w-[600px] border-[1px] max-lg:w-full flex justify-center items-center border-gray-400">
@@ -78,9 +85,9 @@ export default function ProductPreview() {
           >
             Add to Cart
           </button>
-          <div className="flex gap-2 items-start justify-between max-lg:mt-2">
+          <div className="flex gap-2 items-start justify-between max-lg:mt-2 max-[350px]:flex-col max-[350px]:items-center max-[350px]:w-full">
             <Link to="/checkout">
-              <button className="bg-black text-white px-4 py-2 rounded-md">
+              <button className="bg-black text-white px-4 py-2 rounded-md max-[350px]:w-full">
                 Checkout
               </button>
             </Link>

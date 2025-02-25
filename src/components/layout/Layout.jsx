@@ -1,12 +1,14 @@
 import { Outlet } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import Navbar from "../Static/User/Navbar";
 import Footer from "../Static/User/Footer";
 import Cart from "../shared/Cart";
-import useUser from "../../hooks/useCart";
+import useCart from "../../hooks/useCart";
+import { useLocation } from "react-router-dom";
 
 const Layout = () => {
-  const { cartActive, setCartActive } = useUser();
+  const location = useLocation();
+  const { cartActive, setCartActive } = useCart();
   useEffect(() => {
     if (cartActive) {
       document.body.style.overflow = "hidden";
@@ -15,9 +17,30 @@ const Layout = () => {
     }
   }, [cartActive]);
 
+  const withNavbar = useMemo(() => {
+    const staticPaths = [
+      "/",
+      "/Shop",
+      "/Stories",
+      "/Stylefolio",
+      "/About",
+      "/refund",
+      "/shipping",
+    ];
+    const isProductPath = location.pathname.includes("/product/");
+    return [...staticPaths, ...(isProductPath ? [location.pathname] : [])];
+  }, [location.pathname]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (!localStorage.getItem("activePath")) {
+      localStorage.setItem("activePath", location.pathname);
+    }
+  }, [location]);
+
   return (
     <div>
-      <Navbar />
+      {withNavbar.includes(location.pathname) && <Navbar />}
       <Outlet />
       <Footer />
       {cartActive && (

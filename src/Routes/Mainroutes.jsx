@@ -10,6 +10,7 @@ import Refund from "../pages/UserScreen/Refund";
 import Shipping from "../pages/UserScreen/Shipping";
 import Checkout from "../pages/UserScreen/Checkout";
 import ProductPreview from "../pages/UserScreen/ProductPreview";
+import ForgotPassword from "../pages/UserScreen/ForgotPassword";
 export const mainRoute = createBrowserRouter([
   {
     element: (
@@ -53,6 +54,10 @@ export const mainRoute = createBrowserRouter([
       {
         path: "/product/:id",
         element: <ProductPreview />,
+      },
+      {
+        path: "/forgotpassword",
+        element: <ForgotPassword />,
       },
     ],
   },

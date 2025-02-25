@@ -6,25 +6,16 @@ import { Toaster, toast } from "sonner";
 const CartProvider = ({ children }) => {
   const size = ["S", "M", "L", "XL"];
   const [cartActive, setCartActive] = useState(false);
-  const [usdPrice, setUsdPrice] = useState(false);
   const [selectedSize, setSelectedSize] = useState("");
-  const [loading, setLoading] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartLength, setCartLength] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-  const [cartTax, setCartTax] = useState(0);
-  const [cartShipping, setCartShipping] = useState(0);
-  const [cartDiscount, setCartDiscount] = useState(0);
-  const [cartTotalTax, setCartTotalTax] = useState(0);
-  const [cartTotalShipping, setCartTotalShipping] = useState(0);
-  const [cartTotalSubTotal, setCartTotalSubTotal] = useState(0);
 
   useEffect(() => {
     const localData = sessionStorage.getItem("cartItems");
     if (localData) {
       const parsedData = JSON.parse(localData);
       setCartItems(parsedData);
-      setUsdPrice(parsedData.usdPrice || []);
       setCartLength(parsedData.length || 0);
     }
   }, []);
@@ -47,12 +38,14 @@ const CartProvider = ({ children }) => {
           toast.error(
             `This item in size ${selectedSize} is already in your cart!`
           );
+          return prevCartItems;
+        } else {
+          toast.success(`Item added in size ${selectedSize} to cart 🤩`);
+          return [
+            ...prevCartItems,
+            { ...value, quantity: 1, size: selectedSize },
+          ];
         }
-        toast.success(`Item added in size ${selectedSize} to cart 🤩`);
-        return [
-          ...prevCartItems,
-          { ...value, quantity: 1, size: selectedSize },
-        ];
       });
       setSelectedSize("SELECT A SIZE");
     },
@@ -96,18 +89,26 @@ const CartProvider = ({ children }) => {
   }, []);
 
   const decreaseQuantity = useCallback((value) => {
-    if (value.quantity === 1) {
-      toast.error("Quantity cannot be less than 1");
-    } else {
-      setCartItems((prevCart) => {
-        const updatedCart = prevCart.map((item) =>
-          item.id === value.id && item.size === value.size
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
-        return updatedCart;
+    setCartItems((prevCart) => {
+      const updatedCart = prevCart.map((item) => {
+        if (item.id === value.id && item.size === value.size) {
+          const newQuantity = item.quantity - 1;
+          return { ...item, quantity: newQuantity };
+        }
+        return item;
       });
-    }
+
+      const filteredCart = updatedCart.filter((item) => item.quantity > 0);
+
+      if (filteredCart.length === 0) {
+        sessionStorage.removeItem("cartItems");
+        toast.success("Cart is empty");
+      } else {
+        sessionStorage.setItem("cartItems", JSON.stringify(filteredCart));
+      }
+
+      return filteredCart;
+    });
   }, []);
 
   const calculateTotal = useCallback((items) => {
@@ -141,7 +142,6 @@ const CartProvider = ({ children }) => {
     setCartActive,
     cartActive,
     cartItems,
-    usdPrice,
     removeFromCart,
     clearCart,
     increaseQuantity,
