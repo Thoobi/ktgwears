@@ -102,7 +102,6 @@ const CartProvider = ({ children }) => {
 
       if (filteredCart.length === 0) {
         sessionStorage.removeItem("cartItems");
-        toast.success("Cart is empty");
       } else {
         sessionStorage.setItem("cartItems", JSON.stringify(filteredCart));
       }

@@ -1,9 +1,11 @@
 import useCart from "../../hooks/useCart";
+import { useState, useEffect } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { GoPlus } from "react-icons/go";
 import { HiMiniMinus } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 const Cart = () => {
+  const [disabled, setDisabled] = useState(false);
   const {
     cartItems,
     setCartActive,
@@ -14,6 +16,9 @@ const Cart = () => {
   } = useCart();
   const navigate = useNavigate();
   const cartItem = cartItems;
+  useEffect(() => {
+    setDisabled(cartItems.length === 0);
+  }, [cartItems]);
   return (
     <div
       className={`flex flex-row bg-red-600 h-full w-[500px] max-lg:w-full max-lg:h-screen font-clash`}
@@ -98,7 +103,10 @@ const Cart = () => {
             <p className="text-base font-light">{`₦${cartTotal}`}</p>
           </div>
           <button
-            className="bg-white text-black rounded-full h-12 w-full"
+            className={`bg-white text-black rounded-full h-12 w-full ${
+              disabled ? "opacity-50 cursor-logo" : ""
+            }`}
+            disabled={cartItem < 1 ? disabled : false}
             onClick={() => {
               navigate("/checkout");
               setCartActive(false);

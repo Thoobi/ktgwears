@@ -24,15 +24,14 @@ export default function ProductPreview() {
   };
   return (
     <div className="w-full h-full flex flex-col justify-center mt-24 gap-10 max-lg:flex-col items-center max-lg:px-5 max-lg:mt-30 max-lg:gap-10 font-clash">
-      <span className="w-full flex justify-start items-center gap-5 px-5">
+      <span className="w-full flex justify-start items-center px-5">
         <Link to="/" className="text-2xl text-black flex gap-4">
           <img src={stroke} alt="" />
-          back
         </Link>
       </span>
       <h1 className="text-5xl text-black max-lg:text-2xl">Product Details</h1>
       <div className="w-full flex justify-center items-center gap-10 max-lg:gap-5 max-lg:flex-col">
-        <div className="w-[600px] border-[1px] max-lg:w-full flex justify-center items-center border-gray-400">
+        <div className="w-[500px] border-[1px] max-lg:w-full flex justify-center items-center border-gray-400">
           <img
             src={product.img}
             alt={product.title}
