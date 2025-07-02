@@ -1,4 +1,4 @@
-const Refund = () => {
+export const Refund = () => {
   return (
     <div className="flex flex-col gap-20 mt-24 px-5 w-full font-clash">
       <div className="flex flex-col gap-10">
@@ -63,5 +63,3 @@ const Refund = () => {
     </div>
   );
 };
-
-export default Refund;

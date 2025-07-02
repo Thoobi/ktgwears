@@ -1,4 +1,4 @@
-const Shipping = () => {
+export const Shipping = () => {
   return (
     <div className="flex flex-col gap-20 mt-24 px-5 w-full font-clash">
       <div className="flex flex-col gap-10">
@@ -68,5 +68,3 @@ const Shipping = () => {
     </div>
   );
 };
-
-export default Shipping;

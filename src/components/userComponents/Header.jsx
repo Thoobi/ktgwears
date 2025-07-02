@@ -5,11 +5,18 @@ import curve from "../../assets/curve.svg";
 
 const Header = () => {
   return (
-    <header className={`mt-20 h-full w-full`}>
+    <header
+      className={`mt-20 h-full w-full`}
+      style={{
+        backgroundImage: "url('/bg-home1.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
       <div className="flex flex-col relative mt-10">
         <div className="flex flex-row">
           <img src={girl} alt="" className="max-lg:hidden" />
-          <img src={girl1} alt="" />
+          <img src={girl1} alt="" className="" />
           <img src={girl} alt="" className="-scale-x-[1] max-lg:hidden" />
         </div>
         <div className="mt-10 flex justify-center items-center">

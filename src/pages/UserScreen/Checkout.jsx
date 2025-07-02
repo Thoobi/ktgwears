@@ -1,42 +1,18 @@
-import LoginForm from "../../components/userComponents/LoginForm";
-import SignupForm from "../../components/userComponents/SignupForm";
-import logo from "../../assets/ktg-logo.svg";
-import UseGoogle from "../../components/userComponents/UseGoogle";
-import ShippingInfo from "../../components/userComponents/ShippingInfo";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import LoginForm from "@/components/userComponents/LoginForm";
+import SignupForm from "@/components/userComponents/SignupForm";
+import logo from "@/assets/ktg-logo.svg";
+import UseGoogle from "@/components/userComponents/UseGoogle";
+import useCart from "@/hooks/useCart";
 
-const progressTab = [
-  {
-    name: "Shipping Info",
-    content: <ShippingInfo />,
-    active: true,
-  },
-  {
-    name: "Payment",
-    active: false,
-  },
-  {
-    name: "Review",
-    active: false,
-  },
-];
-
-export default function Checkout() {
-  const [activeTab, setActiveTab] = useState(progressTab[0]);
-  const [completedSteps, setCompletedSteps] = useState([0]);
-
-  const handleNext = () => {
-    const currentIndex = progressTab.indexOf(activeTab);
-    const nextIndex = currentIndex + 1;
-
-    if (nextIndex < progressTab.length) {
-      progressTab.forEach((tab, index) => {
-        tab.active = index <= nextIndex;
-      });
-      setActiveTab(progressTab[nextIndex]);
-      setCompletedSteps([...completedSteps, nextIndex]);
-    }
-  };
+export function Checkout() {
+  const {
+    progressTab,
+    setActiveTab,
+    activeTab,
+    completedSteps,
+    setCompletedSteps,
+  } = useCart();
 
   const user = false;
   useEffect(() => {
@@ -84,14 +60,14 @@ export default function Checkout() {
           </section>
         ) : (
           <section className="flex flex-col gap-10 w-full justify-center items-center max-lg:flex-col max-lg:gap-5">
-            <div className="flex flex-row gap-5 w-full justify-start items-center">
+            <div className="flex flex-row gap-10 w-full justify-start items-center px-20">
               {progressTab.map((tab, id) => (
                 <button
                   key={id}
-                  className={`text-2xl font-light flex flex-row  ${
+                  className={`text-3xl font-normal flex flex-row  ${
                     completedSteps.includes(id)
                       ? "text-black font-normal"
-                      : "text-gray-400"
+                      : "text-gray-300"
                   } ${activeTab === tab ? "border-b-2 border-b-black" : ""}`}
                   onClick={() => {
                     setActiveTab(tab);
@@ -105,12 +81,6 @@ export default function Checkout() {
             {
               <section className="flex flex-col gap-5 w-full justify-start items-start px-3">
                 {activeTab.content}
-                <button
-                  className="bg-transparent text-black border-[1px] border-black w-[250px] h-[45px]"
-                  onClick={handleNext}
-                >
-                  <span className="text-xl font-normal">Next</span>
-                </button>
               </section>
             }
           </section>

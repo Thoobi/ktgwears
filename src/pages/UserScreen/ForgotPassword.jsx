@@ -1,7 +1,8 @@
 import { useFormik } from "formik";
 import { Link } from "react-router-dom";
-import stroke from "../../assets/arrow.svg";
+import stroke from "@/assets/arrow.svg";
 import * as Yup from "yup";
+
 const ForgotPassword = () => {
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const emailSchema = Yup.string()

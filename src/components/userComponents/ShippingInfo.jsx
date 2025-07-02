@@ -2,8 +2,10 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { toast } from "sonner";
 import CountrySelect from "./CountrySelect";
+import useCart from "../../hooks/useCart";
 
 const ShippingInfo = () => {
+  const { handleNext, setShippingInfo, shippingInfo } = useCart();
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
   const validationSchema = Yup.object({
@@ -40,6 +42,11 @@ const ShippingInfo = () => {
           console.log("Form Values:", values);
           toast.success("Shipping information saved!");
           toast.success(`Shipping information: \n ${JSON.stringify(values)}`);
+          setTimeout(() => {
+            handleNext();
+          }, 3000);
+          setShippingInfo(values);
+          console.log("Shipping Info:", shippingInfo);
         } catch (error) {
           toast.error("Something went wrong!");
           console.error("Form error:", error);
@@ -205,7 +212,7 @@ const ShippingInfo = () => {
                 type="text"
                 id="zip"
                 name="zip"
-                placeholder="Zip"
+                placeholder="Enter Zip Code"
                 className={`border-2 border-gray-500 h-[45px] p-2 text-lg w-[300px] focus:outline-none ${
                   errors.zip && touched.zip ? "border-red-500" : ""
                 }`}
@@ -217,12 +224,12 @@ const ShippingInfo = () => {
               ) : null}
             </div>
           </div>
-          <div className="flex justify-center items-center w-full">
+          <div className="flex justify-end items-center w-full">
             <button
-              className="bg-black text-white w-[250px] h-[45px] mt-5"
+              className="bg-black text-white w-[250px] h-[45px] mt-5 text-lg"
               type="submit"
             >
-              Save Info
+              Save Info and Proceed
             </button>
           </div>
         </Form>

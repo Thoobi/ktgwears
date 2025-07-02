@@ -16,6 +16,7 @@ const Cart = () => {
   } = useCart();
   const navigate = useNavigate();
   const cartItem = cartItems;
+
   useEffect(() => {
     setDisabled(cartItems.length === 0);
   }, [cartItems]);
@@ -91,8 +92,8 @@ const Cart = () => {
               </div>
             ))
           ) : (
-            <div className="flex justify-center items-center max-lg:w-full h-full text-gray-800 px-10">
-              <h1 className="text-2xl font-medium">Cart is empty</h1>
+            <div className="flex justify-center items-center max-lg:w-full h-[60vh] w-[30vw] text-gray-800 px-10">
+              <h1 className="text-3xl font-medium">Cart is empty</h1>
             </div>
           )}
         </div>

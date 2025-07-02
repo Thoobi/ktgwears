@@ -12,3 +12,17 @@ export const navcomponent = [
     path: "/About",
   },
 ];
+
+export const authcomponent = [
+  {
+    title: "LOGIN",
+    path: "/login",
+  },
+  {
+    title: "REGISTER",
+    path: "/register",
+  },
+  {
+    title: "CART",
+  },
+];

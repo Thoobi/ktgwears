@@ -1,27 +1,31 @@
 import { useEffect, useState } from "react";
-import featuredCollection from "../../lib/featured";
 import { useParams, Link } from "react-router-dom";
-import useCart from "../../hooks/useCart";
+import useCart from "@/hooks/useCart";
+import { featuredCollection } from "@/lib/featured";
 import { GoChevronDown } from "react-icons/go";
-import stroke from "../../assets/arrow.svg";
+import stroke from "@/assets/arrow.svg";
 
 export default function ProductPreview() {
   const [product, setProduct] = useState({});
   const [showSize, setShowSize] = useState(false);
   const { id } = useParams();
   const { addToCart, selectedSize, setSelectedSize, size } = useCart();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
   useEffect(() => {
     const selectedProduct = featuredCollection.find(
       (product) => product.id === parseInt(id)
     );
     setProduct(selectedProduct || {});
   }, [id]);
+
   const handleSizeClick = () => {
     setShowSize(!showSize);
   };
+
   return (
     <div className="w-full h-full flex flex-col justify-center mt-24 gap-10 max-lg:flex-col items-center max-lg:px-5 max-lg:mt-30 max-lg:gap-10 font-clash">
       <span className="w-full flex justify-start items-center px-5">

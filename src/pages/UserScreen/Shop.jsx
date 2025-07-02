@@ -1,7 +1,7 @@
-import { productCategory } from "../../lib/category";
 import { useState } from "react";
+import { productCategory } from "@/lib/category";
 
-const Shop = () => {
+export const Shop = () => {
   const [active, setActive] = useState("All");
   const handleClick = (value) => {
     setActive(value);
@@ -33,5 +33,3 @@ const Shop = () => {
     </section>
   );
 };
-
-export default Shop;

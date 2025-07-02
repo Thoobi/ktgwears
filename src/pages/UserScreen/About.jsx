@@ -1,7 +1,7 @@
-import Mission from "../../assets/mission1.jpg";
-import Vision from "../../assets/mission2.jpg";
+import Mission from "@/assets/mission1.jpg";
+import Vision from "@/assets/mission2.jpg";
 
-const About = () => {
+export const About = () => {
   return (
     <div className="w-full px-4 py-8 space-y-12 mt-14 font-clash">
       <div className="w-full flex justify-center items-center  gap-2">
@@ -51,5 +51,3 @@ const About = () => {
     </div>
   );
 };
-
-export default About;

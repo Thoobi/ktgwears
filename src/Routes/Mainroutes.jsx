@@ -1,16 +1,16 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/layout/Layout";
-import Welcomesreen from "../pages/UserScreen/Welcomescreen";
-import Shop from "../pages/UserScreen/Shop";
-import Stories from "../pages/UserScreen/Stories";
-import Stylechart from "../pages/UserScreen/Stylechart";
-import About from "../pages/UserScreen/About";
-import { CartProvider } from "../context/CartContext";
-import Refund from "../pages/UserScreen/Refund";
-import Shipping from "../pages/UserScreen/Shipping";
-import Checkout from "../pages/UserScreen/Checkout";
-import ProductPreview from "../pages/UserScreen/ProductPreview";
-import ForgotPassword from "../pages/UserScreen/ForgotPassword";
+import { Welcomescreen } from "@/pages/userscreen/Welcomescreen";
+import { Shop } from "@/pages/userscreen/shop";
+import { Stories } from "@/pages/userscreen/stories";
+import { Stylechart } from "@/pages/userscreen/stylechart";
+import { About } from "@/pages/userscreen/about";
+import { CartProvider } from "@/context/CartContext";
+import { Refund } from "@/pages/userscreen/refund";
+import { Shipping } from "@/pages/userscreen/shipping";
+import { Checkout } from "@/pages/userscreen/checkout";
+import ProductPreview from "@/pages/userscreen/productPreview";
+import ForgotPassword from "@/pages/userscreen/forgotPassword";
 export const mainRoute = createBrowserRouter([
   {
     element: (
@@ -21,7 +21,7 @@ export const mainRoute = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Welcomesreen />,
+        element: <Welcomescreen />,
       },
       {
         path: "/shop",

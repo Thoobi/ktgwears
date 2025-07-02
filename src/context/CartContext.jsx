@@ -1,7 +1,24 @@
 import { createContext, useEffect, useState, useCallback } from "react";
 const CartContext = createContext();
 import PropTypes from "prop-types";
+import ShippingInfo from "../components/userComponents/ShippingInfo";
 import { Toaster, toast } from "sonner";
+
+const progressTab = [
+  {
+    name: "Shipping Info",
+    content: <ShippingInfo />,
+    active: true,
+  },
+  {
+    name: "Payment",
+    active: false,
+  },
+  {
+    name: "Review",
+    active: false,
+  },
+];
 
 const CartProvider = ({ children }) => {
   const size = ["S", "M", "L", "XL"];
@@ -10,6 +27,13 @@ const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartLength, setCartLength] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
+  const [activeTab, setActiveTab] = useState(progressTab[0]);
+  const [completedSteps, setCompletedSteps] = useState([0]);
+  const [menuActive, setMenuActive] = useState(false);
+  const [shippingInfo, setShippingInfo] = useState({});
+  const [paymentInfo, setPaymentInfo] = useState({});
+  const [reviewInfo, setReviewInfo] = useState({});
+  const [orderInfo, setOrderInfo] = useState({});
 
   useEffect(() => {
     const localData = sessionStorage.getItem("cartItems");
@@ -39,13 +63,12 @@ const CartProvider = ({ children }) => {
             `This item in size ${selectedSize} is already in your cart!`
           );
           return prevCartItems;
-        } else {
-          toast.success(`Item added in size ${selectedSize} to cart 🤩`);
-          return [
-            ...prevCartItems,
-            { ...value, quantity: 1, size: selectedSize },
-          ];
         }
+        toast.success(`Item added in size ${selectedSize} to cart 🤩`);
+        return [
+          ...prevCartItems,
+          { ...value, quantity: 1, size: selectedSize },
+        ];
       });
       setSelectedSize("SELECT A SIZE");
     },
@@ -66,10 +89,8 @@ const CartProvider = ({ children }) => {
       );
       toast.success("Item removed from cart");
 
-      if (updatedCart.length < 1) {
-        sessionStorage.removeItem("cartItems");
-        setCartLength(0);
-      } else {
+      if (updatedCart.length === 1) {
+        sessionStorage.setItem("cartItems", JSON.stringify(updatedCart));
         setCartLength(updatedCart.length);
       }
 
@@ -117,6 +138,19 @@ const CartProvider = ({ children }) => {
     }, 0);
   }, []);
 
+  const handleNext = () => {
+    const currentIndex = progressTab.indexOf(activeTab);
+    const nextIndex = currentIndex + 1;
+
+    if (nextIndex < progressTab.length) {
+      progressTab.forEach((tab, index) => {
+        tab.active = index <= nextIndex;
+      });
+      setActiveTab(progressTab[nextIndex]);
+      setCompletedSteps([...completedSteps, nextIndex]);
+    }
+  };
+
   useEffect(() => {
     if (cartItems.length > 0) {
       setCartTotal(calculateTotal(cartItems));
@@ -149,6 +183,22 @@ const CartProvider = ({ children }) => {
     selectedSize,
     setSelectedSize,
     size,
+    handleNext,
+    activeTab,
+    progressTab,
+    setActiveTab,
+    completedSteps,
+    setCompletedSteps,
+    shippingInfo,
+    setShippingInfo,
+    paymentInfo,
+    setPaymentInfo,
+    reviewInfo,
+    setReviewInfo,
+    orderInfo,
+    setOrderInfo,
+    setMenuActive,
+    menuActive,
   };
 
   return (

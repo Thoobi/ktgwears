@@ -1,7 +1,7 @@
 import sweatshirt from "../assets/sweatshirt.png";
 import hoodie from "../assets/hoodie.png";
 
-const featuredCollection = [
+export const featuredCollection = [
   {
     id: 1,
     title: "Gorilla Extinct Limited",
@@ -62,4 +62,3 @@ export const featuredCategory = [
     img: sweatshirt,
   },
 ];
-export default featuredCollection;
