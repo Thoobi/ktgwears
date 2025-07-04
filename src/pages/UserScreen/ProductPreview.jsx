@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import useCart from "@/hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 import { featuredCollection } from "@/lib/featured";
 import { GoChevronDown } from "react-icons/go";
 import stroke from "@/assets/arrow.svg";

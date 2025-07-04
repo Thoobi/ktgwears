@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState, useCallback } from "react";
-const CartContext = createContext();
 import PropTypes from "prop-types";
-import ShippingInfo from "../components/userComponents/ShippingInfo";
+import ShippingInfo from "@/components/userComponents/shippingInfo";
 import { Toaster, toast } from "sonner";
 
+const CartContext = createContext();
 const progressTab = [
   {
     name: "Shipping Info",

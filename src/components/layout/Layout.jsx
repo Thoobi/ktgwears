@@ -3,12 +3,13 @@ import { useEffect, useMemo } from "react";
 import Navbar from "../Static/User/Navbar";
 import Footer from "../Static/User/Footer";
 import Cart from "../shared/Cart";
-import useCart from "../../hooks/useCart";
+import { useCart } from "../../hooks/useCart";
 import { useLocation } from "react-router-dom";
 
 const Layout = () => {
   const location = useLocation();
   const { cartActive, setCartActive } = useCart();
+
   useEffect(() => {
     if (cartActive) {
       document.body.style.overflow = "hidden";

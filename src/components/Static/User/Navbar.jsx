@@ -1,32 +1,118 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { navcomponent, authcomponent } from "@/lib/navbar";
-import useCart from "@/hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 import { IoCloseOutline } from "react-icons/io5";
 import ktgDesktop from "@/assets/ktg-text-logo.png";
 import ktgimg from "@/assets/ktg-logo.svg";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Navbar = () => {
   gsap.registerPlugin(useGSAP);
   const { cartLength, setCartActive, setMenuActive, menuActive } = useCart();
+  const { isUserAuthenticated } = useAuth();
   const length = cartLength | 0;
   const location = useLocation();
+  const [menuClicked, setMenuClicked] = useState(false);
   const [active, setActive] = useState(() => {
     return location.pathname || "";
   });
 
-  const gsapRef = useRef();
+  const menuRef = useRef(null);
+  const menuItems = useRef(null);
+  const menuItems1 = useRef(null);
+  const btnRef = useRef(null);
 
-  useGSAP(() => {
+  const handleClose = () => {
+    if (!menuRef.current || !menuItems.current || !btnRef) return;
+
+    const items = menuItems.current.querySelectorAll("li");
+    const items1 = menuItems1.current.querySelectorAll("li");
+    const btn = btnRef.current;
     const tl = gsap.timeline({
-      defaults: { duration: 2.5, ease: "power3.inOut" },
+      onComplete: () => setMenuActive(false),
     });
-    tl.fromTo(".navbar", { y: -100, opacity: 0 }, { y: 0, opacity: 1 });
-    return () => {
-      tl.kill();
-    };
+
+    tl.to(btn, {
+      opacity: 0,
+      y: -20,
+      duration: 0.3,
+    })
+      .to(items1, {
+        x: -20,
+        opacity: 0,
+        duration: 0.2,
+        stagger: 0.1,
+      })
+      .to(items, {
+        x: -20,
+        opacity: 0,
+        duration: 0.2,
+        stagger: 0.1,
+      })
+      .to(menuRef.current, {
+        height: 0,
+        opacity: 0,
+        y: -20,
+        duration: 0.75,
+      });
+  };
+
+  useEffect(() => {
+    if (!menuRef.current || !menuItems.current || !btnRef) return;
+
+    const items = menuItems.current.querySelectorAll("li");
+    const items1 = menuItems1.current.querySelectorAll("li");
+    const btn = btnRef.current;
+
+    if (menuActive) {
+      const tl = gsap.timeline();
+      tl.fromTo(
+        btn,
+        { opacity: 0, y: -20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "power2.inOut",
+        }
+      ).fromTo(
+        menuRef.current,
+        { height: 0, opacity: 0, y: -20 },
+        {
+          height: "93.3vh",
+          opacity: 1,
+          y: 0,
+        }
+      );
+      tl.fromTo(
+        items,
+        { opacity: 0, y: -20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "bounce.out",
+          stagger: {
+            amount: 0.2,
+          },
+        }
+      ).fromTo(
+        items1,
+        { opacity: 0, y: -20 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "bounce.oJut",
+          stagger: {
+            amount: 0.2,
+          },
+        }
+      );
+    }
   }, [menuActive]);
 
   useEffect(() => {
@@ -40,11 +126,9 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`w-full bg-white/[.99] border-b-[1px] border-b-gray-400 flex flex-col items-center fixed px-5 top-0 z-20 justify-between font-clash max-lg:items-center max-lg:h-[60px] max-lg:py-0 transition transform duration-300 ease-in-out ${
-        menuActive ? "h-[50vh] max-lg:py-0" : "max-lg:py-2"
-      }`}
+      className={`w-full bg-white/[.99] border-b-[1px] border-b-gray-400 flex flex-col items-center fixed top-0 z-20 justify-between font-clash max-lg:items-center `}
     >
-      <ul className="flex items-center justify-between w-full max-lg:gap-2 py-4">
+      <ul className="flex items-center justify-between w-full max-lg:gap-2 py-4 px-5">
         <Link
           href={"/"}
           onClick={handleLogoClick}
@@ -58,7 +142,7 @@ const Navbar = () => {
           <img
             src={ktgimg}
             alt="The logo of the brand KTG wears"
-            className="lg:hidden max-lg:w-[25px]"
+            className={`lg:hidden max-lg:w-[25px]`}
           />
         </Link>
 
@@ -109,31 +193,37 @@ const Navbar = () => {
           <div className="flex gap-1 items-center cursor-pointer">
             <button
               className="flex items-center cursor-pointer justify-center h-full"
-              onClick={() => setMenuActive(!menuActive)}
+              onClick={() => {
+                setMenuClicked(true);
+                setMenuActive(!menuActive);
+              }}
             >
               MENU
             </button>
           </div>
         </div>
       </ul>
-      {menuActive && (
+      {menuActive && menuClicked && (
         <div
-          className={`w-full navbar bg-transparent border-t-gray-400 max-lg:hidden
-          flex flex-col justify-between`}
+          ref={menuRef}
+          className={`w-full bg-transparent border-t-gray-400
+          flex flex-col justify-end items-end`}
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between px-5">
             <div className="flex gap-10">
-              <ul className="flex flex-col items-start justify-center py-2 self-start">
+              <ul
+                className="flex flex-col items-start justify-center py-2 self-start"
+                ref={menuItems1}
+              >
                 {navcomponent.map((item, index) => (
                   <li key={index} className="py-2 flex gap-5">
                     <NavLink
                       to={item.path}
-                      ref={gsapRef}
                       onClick={() => {
                         setActive(item.path);
                         setMenuActive(false);
                       }}
-                      className={`text-5xl text-black font-medium transition ${
+                      className={`text-7xl max-lg:text-3xl text-black font-medium menu ${
                         active === item.path ? "font-medium" : ""
                       }`}
                     >
@@ -142,34 +232,53 @@ const Navbar = () => {
                   </li>
                 ))}
               </ul>
-              <ul className="flex flex-col items-start justify-center py-2 self-start">
+              <ul
+                className="flex flex-col items-start justify-center py-2 self-start"
+                ref={menuItems}
+              >
                 {authcomponent.map((item, index) => (
                   <li key={index} className="py-2 flex gap-5">
                     <NavLink
                       to={item.path}
-                      ref={gsapRef}
                       onClick={() => {
+                        if (item.title === "CART") {
+                          setCartActive(true);
+                        }
                         setActive(item.path);
                         setMenuActive(false);
                       }}
-                      className={`text-5xl text-black font-medium transition ${
+                      className={`text-7xl max-lg:text-3xl text-black font-medium menu ${
                         active === item.path ? "font-medium" : ""
                       }`}
                     >
-                      {item.title}
+                      {isUserAuthenticated ? (
+                        <span className="text-black font-medium">
+                          {item.title === "LOGIN" && "DASHBOARD"}
+                        </span>
+                      ) : (
+                        <span className="text-black font-medium">
+                          {item.title}
+                        </span>
+                      )}
+                      {item.title === "CART" && (
+                        <span className="text-black font-medium">
+                          [{length}]
+                        </span>
+                      )}
                     </NavLink>
                   </li>
                 ))}
               </ul>
             </div>
-            <button
-              className="flex items-center flex-row-reverse gap-0.5 self-end py-2"
-              onClick={() => setMenuActive(false)}
-            >
-              <IoCloseOutline className="text-xl font-normal" />
-              <span className="text-lg font-light">Close</span>
-            </button>
           </div>
+          <button
+            ref={btnRef}
+            className="flex items-center flex-row-reverse gap-0.5 self-end py-1.5 px-5 text-white bg-black w-full"
+            onClick={handleClose}
+          >
+            <IoCloseOutline className="text-lg" />
+            <span className="text-base font-normal">Close</span>
+          </button>
         </div>
       )}
     </nav>

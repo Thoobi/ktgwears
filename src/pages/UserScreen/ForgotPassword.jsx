@@ -1,6 +1,5 @@
-import { useFormik } from "formik";
 import { Link } from "react-router-dom";
-import stroke from "@/assets/arrow.svg";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const ForgotPassword = () => {
@@ -28,17 +27,9 @@ const ForgotPassword = () => {
 
   return (
     <section className="w-full px-4 my-20 flex flex-col gap-5 font-clash">
-      <Link
-        to="/checkout"
-        className="flex items-center gap-2 group w-[8%] px-5"
-      >
-        <span className="h-full">
-          <img src={stroke} alt="" className="w-full h-full" />
-        </span>
-      </Link>
-      <div>
-        <div className="w-full flex justify-center items-center pt-40">
-          <h1 className="text-5xl max-lg:text-3xl text-center text-black font-normal">
+      <div className="py-20">
+        <div className="w-full flex justify-center items-center">
+          <h1 className="text-7xl max-lg:text-4xl text-center text-black font-medium">
             Forgot Password
           </h1>
         </div>
@@ -56,7 +47,7 @@ const ForgotPassword = () => {
                 id="email"
                 name="email"
                 placeholder="Email"
-                className={`border-2 border-gray-500 h-[50px] p-2 text-lg w-[450px] focus:outline-none ${
+                className={`border-2 border-gray-500 h-[50px] p-2 text-lg w-md max-lg:w-sm focus:outline-none ${
                   formik.errors.email && formik.touched.email
                     ? "border-red-500"
                     : ""
@@ -71,7 +62,7 @@ const ForgotPassword = () => {
                 </div>
               ) : null}
             </div>
-            <div className="w-full flex justify-center items-center">
+            <div className="w-full flex flex-col justify-center items-center gap-2">
               <button
                 type="submit"
                 className="bg-black/90 hover:bg-black text-white text-lg h-12 w-[350px]"
@@ -80,6 +71,12 @@ const ForgotPassword = () => {
                 {" "}
                 Send Reset Link
               </button>
+              <span className="text-black">
+                Remember your password?{" "}
+                <Link to={"/auth"} className="font-medium text-black underline">
+                  Login
+                </Link>
+              </span>
             </div>
           </form>
         </div>

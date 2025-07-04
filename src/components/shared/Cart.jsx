@@ -1,10 +1,15 @@
-import useCart from "../../hooks/useCart";
-import { useState, useEffect } from "react";
+import { useCart } from "../../hooks/useCart";
+import { useState, useEffect, useRef } from "react";
 import { IoCloseOutline } from "react-icons/io5";
 import { GoPlus } from "react-icons/go";
 import { HiMiniMinus } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+
 const Cart = () => {
+  gsap.registerPlugin(useGSAP);
+  const cart = useRef(null);
   const [disabled, setDisabled] = useState(false);
   const {
     cartItems,
@@ -20,9 +25,11 @@ const Cart = () => {
   useEffect(() => {
     setDisabled(cartItems.length === 0);
   }, [cartItems]);
+
   return (
     <div
-      className={`flex flex-row bg-red-600 h-full w-[500px] max-lg:w-full max-lg:h-screen font-clash`}
+      className={`flex flex-row bg-red-600 h-full w-lg max-lg:w-full max-lg:h-screen font-clash cart`}
+      ref={cart}
     >
       <span
         className="flex flex-col items-center px-1 gap-4 justify-start mt-4 cursor-pointer text-white w-[40px]"
@@ -92,7 +99,7 @@ const Cart = () => {
               </div>
             ))
           ) : (
-            <div className="flex justify-center items-center max-lg:w-full h-[60vh] w-[30vw] text-gray-800 px-10">
+            <div className="flex justify-center items-center max-lg:w-full h-[60vh] w-full text-gray-800 px-10">
               <h1 className="text-3xl font-medium">Cart is empty</h1>
             </div>
           )}

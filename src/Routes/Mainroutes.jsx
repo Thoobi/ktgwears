@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/layout/layout";
 import { Welcomescreen } from "@/pages/userscreen/Welcomescreen";
 import { Shop } from "@/pages/userscreen/shop";
 import { Stories } from "@/pages/userscreen/stories";
@@ -11,11 +11,18 @@ import { Shipping } from "@/pages/userscreen/shipping";
 import { Checkout } from "@/pages/userscreen/checkout";
 import ProductPreview from "@/pages/userscreen/productPreview";
 import ForgotPassword from "@/pages/userscreen/forgotPassword";
+import { Auth } from "@/pages/userscreen/auth";
+import { AuthProvider } from "@/context/AuthContext";
+import { UserDashboard } from "@/pages/userscreen/protected/userDashboard";
+import ProtectedRoutes from "@/routes/protectedRoutes";
+
 export const mainRoute = createBrowserRouter([
   {
     element: (
       <CartProvider>
-        <Layout />
+        <AuthProvider>
+          <Layout />
+        </AuthProvider>
       </CartProvider>
     ),
     children: [
@@ -58,6 +65,18 @@ export const mainRoute = createBrowserRouter([
       {
         path: "/forgotpassword",
         element: <ForgotPassword />,
+      },
+      {
+        path: "/user",
+        element: (
+          <ProtectedRoutes>
+            <UserDashboard />
+          </ProtectedRoutes>
+        ),
+      },
+      {
+        path: "/auth",
+        element: <Auth />,
       },
     ],
   },

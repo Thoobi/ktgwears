@@ -3,7 +3,7 @@ import LoginForm from "@/components/userComponents/LoginForm";
 import SignupForm from "@/components/userComponents/SignupForm";
 import logo from "@/assets/ktg-logo.svg";
 import UseGoogle from "@/components/userComponents/UseGoogle";
-import useCart from "@/hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 
 export function Checkout() {
   const {
@@ -14,7 +14,7 @@ export function Checkout() {
     setCompletedSteps,
   } = useCart();
 
-  const user = false;
+  const user = true;
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -29,7 +29,7 @@ export function Checkout() {
         />
       </span>
       {user === true ? (
-        <span className="flex flex-row justify-between items-center">
+        <span className="flex flex-col justify-between items-start">
           <h2 className="text-3xl font-normal ">
             Welcome back, kindly login or Signup to checkout your order
           </h2>

@@ -1,8 +1,8 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { toast } from "sonner";
-import CountrySelect from "./CountrySelect";
-import useCart from "../../hooks/useCart";
+import CountrySelect from "./countrySelect";
+import { useCart } from "@/hooks/useCart";
 
 const ShippingInfo = () => {
   const { handleNext, setShippingInfo, shippingInfo } = useCart();

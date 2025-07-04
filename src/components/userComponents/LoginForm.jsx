@@ -2,8 +2,11 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import { useAuth } from "@/hooks/useAuth";
 
 function LoginForm() {
+  const { handleLogin, loading, setLoading } = useAuth();
   const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -29,16 +32,22 @@ function LoginForm() {
       email: "",
       password: "",
     },
-    onSubmit: (values, initialValues) => {
-      toast.success(`Login successful \n ${JSON.stringify(values)}`);
-      setTimeout(() => {
-        formik.resetForm(initialValues);
-      }, 1000);
-    },
     validationSchema: Yup.object({
       email: emailSchema,
       password: passwordSchema,
     }),
+    onSubmit: async (values, { resetForm }) => {
+      setLoading(true);
+      const data = await handleLogin(values.email, values.password);
+      if (data.error) {
+        setLoading(false);
+        toast.error(data.error.message);
+      } else {
+        setLoading(false);
+        toast.success("Login successful!");
+        resetForm();
+      }
+    },
   });
   return (
     <form
@@ -66,7 +75,8 @@ function LoginForm() {
           </label>
           <input
             type="email"
-            name="email"
+            id="email"
+            autoComplete="on"
             placeholder="Email"
             value={formik.values.email}
             onChange={formik.handleChange}
@@ -85,7 +95,7 @@ function LoginForm() {
           </label>
           <input
             type="password"
-            name="password"
+            id="password"
             placeholder="Password"
             autoComplete="on"
             value={formik.values.password}
@@ -101,12 +111,21 @@ function LoginForm() {
           ) : null}
         </div>
       </div>
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <button
           type="submit"
           className="bg-black rounded-md hover:bg-black/90 text-white text-lg h-[45px] w-[300px]"
+          disabled={loading}
         >
-          Login
+          {loading ? "Verifying..." : "Login"}
+        </button>
+        <button
+          type="submit"
+          className="border-black border-2 text-black text-lg h-[45px] w-[300px] rounded-md flex gap-2 justify-center items-center"
+          disabled={loading}
+        >
+          <FcGoogle className="inline-block" />
+          Continue with google
         </button>
       </div>
     </form>
