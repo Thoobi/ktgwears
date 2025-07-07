@@ -1,15 +1,39 @@
-import { useAuth } from "@/hooks/useAuth";
+import { useState } from "react";
+import Sidebar from "@components/userComponents/sidebar";
+import Order from "@components/userComponents/postAuth/order";
+import Shipping from "@components/userComponents/postAuth/shippingInfo";
+
+const sidebarItems = [
+  {
+    tab: "SHIPPING",
+    name: "Shipping info",
+    path: "/user",
+    component: <Shipping />,
+  },
+  {
+    tab: "ORDERS",
+    name: "Orders",
+    path: "/user/orders",
+    component: <Order />,
+  },
+];
+
 export function UserDashboard() {
-  const { handleLogout } = useAuth();
+  const [activeTab, setActiveTab] = useState("SHIPPING");
   return (
-    <div>
-      <h1 className="text-7xl">User Dashboard</h1>
-      <button
-        onClick={handleLogout}
-        className="mt-5 px-4 py-2 bg-red-600 text-white rounded"
-      >
-        Logout
-      </button>
-    </div>
+    <section className="w-full px-4 mt-14 font-clash flex flex-row">
+      <section className="border-r border-r-gray-400 w-1/4 h-screen">
+        <Sidebar
+          navlink={sidebarItems}
+          setActiveTab={setActiveTab}
+          activeTab={activeTab}
+        />
+      </section>
+      <section className="flex-1 h-[60vh] px-5">
+        <div className="mt-5">
+          {sidebarItems.find((item) => item.tab === activeTab)?.component}
+        </div>
+      </section>
+    </section>
   );
 }

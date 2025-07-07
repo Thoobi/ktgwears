@@ -48,16 +48,13 @@ const CartProvider = ({ children }) => {
     (value) => {
       setCartItems((prevCart) => {
         const prevCartItems = Array.isArray(prevCart) ? prevCart : [];
-
         if (selectedSize === "SELECT A SIZE" || !selectedSize) {
           toast.error("Please select a size first");
           return prevCartItems;
         }
-
         const existingProductWithSameSize = prevCartItems.find(
           (item) => item.id === value.id && item.size === selectedSize
         );
-
         if (existingProductWithSameSize) {
           toast.error(
             `This item in size ${selectedSize} is already in your cart!`
@@ -65,10 +62,11 @@ const CartProvider = ({ children }) => {
           return prevCartItems;
         }
         toast.success(`Item added in size ${selectedSize} to cart 🤩`);
-        return [
-          ...prevCartItems,
-          { ...value, quantity: 1, size: selectedSize },
-        ];
+        const newItem = { ...value, quantity: 1, size: selectedSize };
+        const updatedCart = [...prevCartItems, newItem];
+        sessionStorage.setItem("cartItems", JSON.stringify(updatedCart));
+        setCartLength(updatedCart.length);
+        return updatedCart;
       });
       setSelectedSize("SELECT A SIZE");
     },

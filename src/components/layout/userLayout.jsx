@@ -6,7 +6,7 @@ import Cart from "../shared/Cart";
 import { useCart } from "../../hooks/useCart";
 import { useLocation } from "react-router-dom";
 
-const Layout = () => {
+const Userlayout = () => {
   const location = useLocation();
   const { cartActive, setCartActive } = useCart();
 
@@ -27,6 +27,7 @@ const Layout = () => {
       "/About",
       "/refund",
       "/shipping",
+      "/user",
     ];
     const isProductPath = location.pathname.includes("/product/");
     return [...staticPaths, ...(isProductPath ? [location.pathname] : [])];
@@ -61,4 +62,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export default Userlayout;

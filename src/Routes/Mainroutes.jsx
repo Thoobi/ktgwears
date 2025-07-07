@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "../components/layout/layout";
+import Layout from "@components/layout/userLayout";
 import { Welcomescreen } from "@/pages/userscreen/Welcomescreen";
 import { Shop } from "@/pages/userscreen/shop";
 import { Stories } from "@/pages/userscreen/stories";
@@ -9,12 +9,16 @@ import { CartProvider } from "@/context/CartContext";
 import { Refund } from "@/pages/userscreen/refund";
 import { Shipping } from "@/pages/userscreen/shipping";
 import { Checkout } from "@/pages/userscreen/checkout";
-import ProductPreview from "@/pages/userscreen/productPreview";
-import ForgotPassword from "@/pages/userscreen/forgotPassword";
 import { Auth } from "@/pages/userscreen/auth";
 import { AuthProvider } from "@/context/AuthContext";
 import { UserDashboard } from "@/pages/userscreen/protected/userDashboard";
 import ProtectedRoutes from "@/routes/protectedRoutes";
+import ProductPreview from "@/pages/userscreen/productPreview";
+import ForgotPassword from "@/pages/userscreen/forgotPassword";
+import Adminlayout from "@components/layout/adminLayout";
+import Admindashboard from "@/pages/adminscreen/adminDashboard";
+import Adminlogin from "../pages/adminScreen/adminLogin";
+import UserDashboardLayout from "@components/layout/userDashboardLayout";
 
 export const mainRoute = createBrowserRouter([
   {
@@ -66,18 +70,40 @@ export const mainRoute = createBrowserRouter([
         path: "/forgotpassword",
         element: <ForgotPassword />,
       },
-      {
-        path: "/user",
-        element: (
-          <ProtectedRoutes>
-            <UserDashboard />
-          </ProtectedRoutes>
-        ),
-      },
+
       {
         path: "/auth",
         element: <Auth />,
       },
+      {
+        element: <UserDashboardLayout />,
+        children: [
+          {
+            path: "user",
+            element: (
+              <ProtectedRoutes>
+                <AuthProvider>
+                  <UserDashboard />
+                </AuthProvider>
+              </ProtectedRoutes>
+            ),
+          },
+        ],
+      },
     ],
+  },
+
+  {
+    element: <Adminlayout />,
+    children: [
+      {
+        path: "/admin/dashboard",
+        element: <Admindashboard />,
+      },
+    ],
+  },
+  {
+    path: "/admin/login",
+    element: <Adminlogin />,
   },
 ]);

@@ -13,10 +13,10 @@ export const navcomponent = [
   },
 ];
 
-export const authcomponent = [
+export const authcomponent = (isAuthenticated) => [
   {
-    title: "LOGIN",
-    path: "/auth",
+    title: isAuthenticated ? "DASHBOARD" : "LOGIN",
+    path: isAuthenticated ? "/user" : "/auth",
   },
   {
     title: "CART",

@@ -3,7 +3,7 @@ import Vision from "@/assets/mission2.jpg";
 
 export const About = () => {
   return (
-    <div className="w-full px-4 py-8 space-y-12 mt-14 font-clash">
+    <section className="w-full px-4 py-8 space-y-12 mt-14 font-clash">
       <div className="w-full flex justify-center items-center  gap-2">
         <h1 className="text-7xl max-lg:text-5xl text-center text-black font-normal">
           Our Brand
@@ -48,6 +48,6 @@ export const About = () => {
           </div>
         </section>
       </div>
-    </div>
+    </section>
   );
 };

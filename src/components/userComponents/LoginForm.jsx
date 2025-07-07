@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "sonner";
 import { Link } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/hooks/useAuth";
@@ -38,15 +37,9 @@ function LoginForm() {
     }),
     onSubmit: async (values, { resetForm }) => {
       setLoading(true);
-      const data = await handleLogin(values.email, values.password);
-      if (data.error) {
-        setLoading(false);
-        toast.error(data.error.message);
-      } else {
-        setLoading(false);
-        toast.success("Login successful!");
-        resetForm();
-      }
+      await handleLogin(values.email, values.password);
+      setLoading(false);
+      resetForm();
     },
   });
   return (

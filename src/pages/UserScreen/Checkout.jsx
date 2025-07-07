@@ -4,6 +4,7 @@ import SignupForm from "@/components/userComponents/SignupForm";
 import logo from "@/assets/ktg-logo.svg";
 import UseGoogle from "@/components/userComponents/UseGoogle";
 import { useCart } from "@/hooks/useCart";
+import { useAuth } from "@/hooks/useAuth";
 
 export function Checkout() {
   const {
@@ -14,7 +15,8 @@ export function Checkout() {
     setCompletedSteps,
   } = useCart();
 
-  const user = true;
+  const { isAuthenticated } = useAuth();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   });
@@ -28,7 +30,7 @@ export function Checkout() {
           className="w-20 h-20 opacity-5 max-lg:hidden"
         />
       </span>
-      {user === true ? (
+      {isAuthenticated === false ? (
         <span className="flex flex-col justify-between items-start">
           <h2 className="text-3xl font-normal ">
             Welcome back, kindly login or Signup to checkout your order
@@ -52,7 +54,7 @@ export function Checkout() {
       )}
 
       <div className="flex flex-row mt-10 py-10 max-lg:py-5 justify-center items-center">
-        {user === true ? (
+        {isAuthenticated === false ? (
           <section className="flex gap-10 w-full justify-center items-center max-lg:flex-col max-lg:gap-5">
             <LoginForm />
             <SignupForm />

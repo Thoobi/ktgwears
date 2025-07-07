@@ -48,26 +48,10 @@ export default function SignupForm() {
       confirmpassword: confirmpasswordSchema,
     }),
     onSubmit: async (values, { resetForm }) => {
-      try {
-        setLoading(true);
-        const data = await handleSignup(
-          values.email,
-          values.password,
-          values.username
-        );
-
-        if (data.user?.identities?.length === 0) {
-          toast.error("User with email already exists");
-        } else {
-          toast.success("Account created successfully!");
-          setLoading(false);
-          resetForm();
-        }
-      } catch (error) {
-        console.error("Signup error:", error);
-        toast.error("An error occurred while signing up. Please try again.");
-        setLoading(false);
-      }
+      setLoading(true);
+      await handleSignup(values.email, values.password, values.username);
+      setLoading(false);
+      resetForm();
     },
   });
   return (

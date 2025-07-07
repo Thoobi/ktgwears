@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { supabase } from "../lib/supaClient";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const AuthContext = createContext(null);
 
@@ -68,7 +69,18 @@ const AuthProvider = ({ children }) => {
       },
     });
     if (data) {
-      console.log(data);
+      if (data.user?.identities?.length === 0) {
+        toast.error("User with email already exists");
+      } else {
+        toast.success("Account created successfully!", {
+          onAutoClose: () => {
+            setLoading(false);
+            setTimeout(() => {
+              navigate("/auth");
+            }, 1000);
+          },
+        });
+      }
     }
     setLoading(false);
     return { data, error };
@@ -86,9 +98,16 @@ const AuthProvider = ({ children }) => {
       return { data: null, error };
     }
     if (data) {
-      console.log(data);
-      setIsAuthenticated(true);
-      setUser(data.user);
+      toast.success("Login successful!", {
+        onAutoClose: () => {
+          setIsAuthenticated(true);
+          setUser(data.user);
+          setTimeout(() => {
+            setLoading(false);
+            navigate("/user");
+          }, 1000);
+        },
+      });
     }
 
     return { data, error: null };
@@ -105,8 +124,19 @@ const AuthProvider = ({ children }) => {
     setUser(null);
     setIsAuthenticated(false);
     setLoading(false);
-    navigate("/auth", { replace: true });
     return { error: null };
+  };
+
+  const getUser = async () => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      return user;
+    } catch (error) {
+      console.error("Error getting user:", error);
+      return null;
+    }
   };
 
   const value = {
@@ -120,6 +150,7 @@ const AuthProvider = ({ children }) => {
     handleLogin,
     handleLogout,
     isLoading,
+    getUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

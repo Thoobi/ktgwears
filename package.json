@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.14.3",
+    "@cloudinary/url-gen": "^1.21.0",
     "@gsap/react": "^2.1.2",
     "@supabase/supabase-js": "^2.50.3",
     "formik": "^2.4.6",

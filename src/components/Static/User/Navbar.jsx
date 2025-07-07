@@ -12,13 +12,14 @@ import { useAuth } from "@/hooks/useAuth";
 const Navbar = () => {
   gsap.registerPlugin(useGSAP);
   const { cartLength, setCartActive, setMenuActive, menuActive } = useCart();
-  const { isUserAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const length = cartLength | 0;
   const location = useLocation();
   const [menuClicked, setMenuClicked] = useState(false);
   const [active, setActive] = useState(() => {
     return location.pathname || "";
   });
+  const navItems = authcomponent(isAuthenticated);
 
   const menuRef = useRef(null);
   const menuItems = useRef(null);
@@ -236,7 +237,7 @@ const Navbar = () => {
                 className="flex flex-col items-start justify-center py-2 self-start"
                 ref={menuItems}
               >
-                {authcomponent.map((item, index) => (
+                {navItems.map((item, index) => (
                   <li key={index} className="py-2 flex gap-5">
                     <NavLink
                       to={item.path}
@@ -244,6 +245,7 @@ const Navbar = () => {
                         if (item.title === "CART") {
                           setCartActive(true);
                         }
+
                         setActive(item.path);
                         setMenuActive(false);
                       }}
@@ -251,15 +253,10 @@ const Navbar = () => {
                         active === item.path ? "font-medium" : ""
                       }`}
                     >
-                      {isUserAuthenticated ? (
-                        <span className="text-black font-medium">
-                          {item.title === "LOGIN" && "DASHBOARD"}
-                        </span>
-                      ) : (
-                        <span className="text-black font-medium">
-                          {item.title}
-                        </span>
-                      )}
+                      <span className="text-black font-medium">
+                        {item.title}
+                      </span>
+
                       {item.title === "CART" && (
                         <span className="text-black font-medium">
                           [{length}]
