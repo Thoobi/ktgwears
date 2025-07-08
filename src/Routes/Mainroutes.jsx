@@ -17,7 +17,8 @@ import ProductPreview from "@/pages/userscreen/productPreview";
 import ForgotPassword from "@/pages/userscreen/forgotPassword";
 import Adminlayout from "@components/layout/adminLayout";
 import Admindashboard from "@/pages/adminscreen/adminDashboard";
-import Adminlogin from "../pages/adminScreen/adminLogin";
+import Adminlogin from "@/pages/adminScreen/adminLogin";
+import AdminSignup from "@/pages/adminScreen/adminSignup";
 import UserDashboardLayout from "@components/layout/userDashboardLayout";
 
 export const mainRoute = createBrowserRouter([
@@ -92,18 +93,25 @@ export const mainRoute = createBrowserRouter([
       },
     ],
   },
-
   {
-    element: <Adminlayout />,
+    element: (
+      <AuthProvider>
+        <Adminlayout />
+      </AuthProvider>
+    ),
     children: [
       {
         path: "/admin/dashboard",
         element: <Admindashboard />,
       },
+      {
+        path: "/admin/login",
+        element: <Adminlogin />,
+      },
+      {
+        path: "/admin/signup",
+        element: <AdminSignup />,
+      },
     ],
-  },
-  {
-    path: "/admin/login",
-    element: <Adminlogin />,
   },
 ]);

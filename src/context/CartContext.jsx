@@ -1,22 +1,28 @@
 import { createContext, useEffect, useState, useCallback } from "react";
 import PropTypes from "prop-types";
 import ShippingInfo from "@/components/userComponents/shippingInfo";
+import Payment from "@/components/userComponents/stack/Payment";
 import { Toaster, toast } from "sonner";
 
 const CartContext = createContext();
 const progressTab = [
   {
+    tag: "SHIPPING",
+    range: 0,
     name: "Shipping Info",
     content: <ShippingInfo />,
-    active: true,
   },
   {
+    tag: "PAYMENT",
+    range: 1,
     name: "Payment",
-    active: false,
+    content: <Payment />,
   },
   {
+    tag: "REVIEW",
+    range: 2,
     name: "Review",
-    active: false,
+    content: <div>Review</div>,
   },
 ];
 
@@ -27,10 +33,20 @@ const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [cartLength, setCartLength] = useState(0);
   const [cartTotal, setCartTotal] = useState(0);
-  const [activeTab, setActiveTab] = useState(progressTab[0]);
+  const [activeTab, setActiveTab] = useState(progressTab[0].tag);
   const [completedSteps, setCompletedSteps] = useState([0]);
   const [menuActive, setMenuActive] = useState(false);
-  const [shippingInfo, setShippingInfo] = useState({});
+  const [shippingInfo, setShippingInfo] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    country: "",
+    zip: "",
+  });
   const [paymentInfo, setPaymentInfo] = useState({});
   const [reviewInfo, setReviewInfo] = useState({});
   const [orderInfo, setOrderInfo] = useState({});
@@ -136,19 +152,6 @@ const CartProvider = ({ children }) => {
     }, 0);
   }, []);
 
-  const handleNext = () => {
-    const currentIndex = progressTab.indexOf(activeTab);
-    const nextIndex = currentIndex + 1;
-
-    if (nextIndex < progressTab.length) {
-      progressTab.forEach((tab, index) => {
-        tab.active = index <= nextIndex;
-      });
-      setActiveTab(progressTab[nextIndex]);
-      setCompletedSteps([...completedSteps, nextIndex]);
-    }
-  };
-
   useEffect(() => {
     if (cartItems.length > 0) {
       setCartTotal(calculateTotal(cartItems));
@@ -181,7 +184,6 @@ const CartProvider = ({ children }) => {
     selectedSize,
     setSelectedSize,
     size,
-    handleNext,
     activeTab,
     progressTab,
     setActiveTab,

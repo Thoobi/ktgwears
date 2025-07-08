@@ -3,10 +3,15 @@ import * as Yup from "yup";
 import { toast } from "sonner";
 import CountrySelect from "./countrySelect";
 import { useCart } from "@/hooks/useCart";
+import { useEffect } from "react";
 
 const ShippingInfo = () => {
-  const { handleNext, setShippingInfo, shippingInfo } = useCart();
+  const { progressTab, setShippingInfo, shippingInfo, setActiveTab } =
+    useCart();
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  useEffect(() => {
+    console.log("Shipping Info Updated:", shippingInfo);
+  }, [shippingInfo]);
 
   const validationSchema = Yup.object({
     firstName: Yup.string().required("First name is required"),
@@ -40,13 +45,18 @@ const ShippingInfo = () => {
       onSubmit={(values, { setSubmitting }) => {
         try {
           console.log("Form Values:", values);
-          toast.success("Shipping information saved!");
-          toast.success(`Shipping information: \n ${JSON.stringify(values)}`);
-          setTimeout(() => {
-            handleNext();
-          }, 3000);
           setShippingInfo(values);
-          console.log("Shipping Info:", shippingInfo);
+          toast.success("Shipping information saved successfully!", {
+            onAutoClose: () => {
+              const nextTab = progressTab.find((tab) => tab.range === 1);
+              if (nextTab) {
+                setActiveTab("PAYMENT");
+                setShippingInfo(values);
+                setSubmitting(false);
+              }
+            },
+          });
+          toast.success(`Shipping information: \n ${JSON.stringify(values)}`);
         } catch (error) {
           toast.error("Something went wrong!");
           console.error("Form error:", error);

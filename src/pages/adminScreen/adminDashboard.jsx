@@ -1,4 +1,4 @@
-import UploadForm from "../../components/adminComponent/uploadForm";
+import UploadForm from "@components/adminComponent/uploadForm";
 
 export default function Admindashboard() {
   return (

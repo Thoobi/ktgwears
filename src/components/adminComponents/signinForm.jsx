@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/hooks/useAuth";
+import { useState } from "react";
 
 function LoginForm() {
-  const { handleLogin, isLoginLoading } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+  const { handleAdminLogin } = useAuth();
   const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -36,7 +37,9 @@ function LoginForm() {
       password: passwordSchema,
     }),
     onSubmit: async (values, { resetForm }) => {
-      await handleLogin(values.email, values.password);
+      setIsLoading(true);
+      await handleAdminLogin(values.email, values.password);
+      setIsLoading(false);
       resetForm();
     },
   });
@@ -106,17 +109,9 @@ function LoginForm() {
         <button
           type="submit"
           className="bg-black rounded-md hover:bg-black/90 text-white text-lg h-[45px] w-[300px]"
-          disabled={isLoginLoading}
+          disabled={isLoading}
         >
-          {isLoginLoading ? "Verifying..." : "Login"}
-        </button>
-        <button
-          type="submit"
-          className="border-black border-2 text-black text-lg h-[45px] w-[300px] rounded-md flex gap-2 justify-center items-center"
-          disabled={isLoginLoading}
-        >
-          <FcGoogle className="inline-block" />
-          Continue with google
+          {isLoading ? "Verifying..." : "Login"}
         </button>
       </div>
     </form>

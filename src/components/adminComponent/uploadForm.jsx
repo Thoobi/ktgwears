@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { supabase } from "@/lib/supaClient";
-import { useNavigate } from "react-router-dom";
-// import WatchList from "./WatchList ";
 import { FiLogOut, FiUploadCloud } from "react-icons/fi";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
 
 const UploadForm = () => {
+  const { handleAdminLogout } = useAuth();
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [size, setSize] = useState([]);
@@ -13,8 +13,7 @@ const UploadForm = () => {
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [uploading, setUploading] = useState(false);
-  const [user, setUser] = useState(null);
-  //   const [refreshKey, setRefreshKey] = useState(0);
+  //   const [user, setUser] = useState(null);
   const options = [
     { id: 1, label: "Xs" },
     { id: 2, label: "S" },
@@ -24,24 +23,8 @@ const UploadForm = () => {
     { id: 6, label: "XXL" },
   ];
 
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabase.auth.getUser();
-      if (!data.user) {
-        setUser(null);
-        navigate("/auth/admin");
-      } else {
-        setUser(data.user);
-      }
-    };
-    getUser();
-  }, []);
-
   const handleSelect = (optionId) => {
     setSize((prev) => {
-      // If item is already selected, remove it
       if (prev.includes(optionId)) {
         return prev.filter((id) => id !== optionId);
       }
@@ -92,7 +75,7 @@ const UploadForm = () => {
           price: Number(price),
           category,
           imageUrl: imageUrl,
-          size: JSON.stringify(size), // Store size as JSON string
+          size: JSON.stringify(size),
         },
       ]);
 
@@ -118,14 +101,6 @@ const UploadForm = () => {
     }
   };
 
-  //   if (!user) {
-  //     return (
-  //       <div className="text-center mt-20">
-  //         <p className="text-gray-600">Checking authentication...</p>
-  //       </div>
-  //     );
-  //   }
-
   return (
     <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-2xl rounded-xl">
       {/* Header */}
@@ -134,11 +109,8 @@ const UploadForm = () => {
           <FiUploadCloud className="text-black" /> Upload New Watch
         </h2>
         <button
-          onClick={async () => {
-            await supabase.auth.signOut();
-            navigate("/auth/admin");
-          }}
           className="text-red-600 text-sm hover:underline flex items-center gap-1"
+          onClick={handleAdminLogout}
         >
           <FiLogOut size={16} /> Sign Out
         </button>
