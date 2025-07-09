@@ -11,7 +11,6 @@ const FeaturedCollection = ({
   buttonValue,
 }) => {
   const navigate = useNavigate();
-  // const { addToCart } = useCart();
 
   const handleClick = (value) => {
     navigate(`/Shop/${value}`);
@@ -20,10 +19,6 @@ const FeaturedCollection = ({
   const productClick = (item) => {
     navigate(`/product/${item.id}`);
   };
-
-  // const handleCart = (value) => {
-  //   addToCart(value);
-  // };
 
   return (
     <section className="w-full mt-20 border-t-[1px] border-t-black py-2 flex items-center justify-center flex-col">
