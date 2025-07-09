@@ -2,21 +2,21 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useMemo } from "react";
 import Navbar from "../Static/User/Navbar";
 import Footer from "../Static/User/Footer";
-// import Cart from "../shared/Cart";
-// import { useCart } from "@/hooks/useCart";
+import Cart from "../shared/Cart";
+import { useCart } from "@/hooks/useCart";
 import { useLocation } from "react-router-dom";
 
 const Userlayout = () => {
   const location = useLocation();
-  // const { cartActive, setCartActive } = useCart();
+  const { cartActive, setCartActive } = useCart();
 
-  // useEffect(() => {
-  //   if (cartActive) {
-  //     document.body.style.overflow = "hidden";
-  //   } else {
-  //     document.body.style.overflow = "auto";
-  //   }
-  // }, [cartActive]);
+  useEffect(() => {
+    if (cartActive) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [cartActive]);
 
   const withNavbar = useMemo(() => {
     const staticPaths = [
@@ -45,7 +45,7 @@ const Userlayout = () => {
       {withNavbar.includes(location.pathname) && <Navbar />}
       <Outlet />
       <Footer />
-      {/* {cartActive && (
+      {cartActive && (
         <>
           <div
             className="fixed inset-0 bg-black/5 z-40 cursor-pointer transition-opacity duration-300 ease-in-out max-lg:hidden"
@@ -57,7 +57,7 @@ const Userlayout = () => {
             <Cart />
           </div>
         </>
-      )} */}
+      )}
     </div>
   );
 };
