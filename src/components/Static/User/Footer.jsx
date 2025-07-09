@@ -1,6 +1,6 @@
 import { FaInstagram, FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import FooterCard from "@components/userComponents/footerCard";
+import FooterCard from "@components/userComponents/FooterCard";
 
 const Footer = () => {
   return (
