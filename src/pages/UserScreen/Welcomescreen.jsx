@@ -4,7 +4,7 @@ import Header from "@/components/userComponents/Header";
 import FeaturedCollection from "@/components/userComponents/FeaturedCollection";
 import { featuredCollection, featuredCategory } from "@/lib/featured";
 
-export const Welcomescreen = () => {
+export const WelcomeScreen = () => {
   const navigate = useNavigate();
 
   useEffect(() => {

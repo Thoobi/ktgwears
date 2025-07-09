@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "@components/layout/userLayout";
-import { Welcomescreen } from "@/pages/userscreen/Welcomescreen";
+import { WelcomeScreen } from "@/pages/userscreen/Welcomescreen";
 import { Shop } from "@/pages/userscreen/shop";
 import { Stories } from "@/pages/userscreen/stories";
 import { Stylechart } from "@/pages/userscreen/stylechart";
@@ -32,7 +32,7 @@ export const mainRoute = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Welcomescreen />,
+        element: <WelcomeScreen />,
       },
       {
         path: "/shop",
