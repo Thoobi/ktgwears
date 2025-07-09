@@ -1,6 +1,6 @@
 export const Refund = () => {
   return (
-    <div className="flex flex-col gap-20 mt-24 px-5 w-full font-clash">
+    <div className="flex flex-col gap-20 mt-24 px-5 w-full font-clash max-md:gap-16">
       <div className="flex flex-col gap-10 max-md:gap-5">
         <h1 className="text-6xl font-medium max-md:text-4xl">Return Policy</h1>
         <div className="flex flex-col gap-8">
@@ -31,18 +31,18 @@ export const Refund = () => {
 
       <span className="border-[1px] border-dashed border-gray-800 w-full"></span>
 
-      <div className="flex flex-col gap-10">
-        <h1 className="text-6xl font-medium">Refund Policy</h1>
-        <div className="flex flex-col gap-4 text-2xl text-gray-800">
-          <p>
-            Refund on items or orders yet to be processed. Refund on items or
-            Orders yet to be processed. Refund on items or Orders yet to be
-            processed.
-          </p>
+      <div className="flex flex-col gap-10 max-md:gap-5">
+        <h1 className="text-6xl font-medium max-md:text-4xl">Refund Policy</h1>
+        <div className="text-2xl text-gray-800 max-md:text-lg">
+          Refund on items or orders yet to be processed. Refund on items or
+          Orders yet to be processed. Refund on items or Orders yet to be
+          processed.
         </div>
         <div className="flex flex-col gap-4">
-          <span className="text-2xl text-gray-800">Requests:</span>
-          <ul className="flex gap-4 flex-col text-2xl text-gray-800">
+          <span className="text-2xl text-gray-800 max-md:text-xl max-md:font-medium">
+            Requests:
+          </span>
+          <ul className="flex gap-4 flex-col text-2xl text-gray-800 max-md:text-lg">
             <span className="border-[1px] border-dashed border-gray-300 w-full"></span>
             <li>
               Items recieved 48 hours (Outside Lagos) & 12 hours (Within Lagos)

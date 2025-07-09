@@ -1,11 +1,12 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "sonner";
 import { FcGoogle } from "react-icons/fc";
 import { useAuth } from "@/hooks/useAuth";
+import { useState } from "react";
 
 export default function SignupForm() {
-  const { handleSignup, loading, setLoading } = useAuth();
+  const { handleSignup } = useAuth();
+  const [loading, setLoading] = useState(false);
   const emailRegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const passwordRegExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*$/;
 
@@ -29,8 +30,10 @@ export default function SignupForm() {
     .required("Password is required")
     .min(6, "Password is too short")
     .matches(passwordRegExp, {
-      message:
-        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
+      message: [
+        "Password must contain at least one uppercase",
+        "one lowercase letter, and one number",
+      ],
       excludeEmptyString: true,
     });
 
