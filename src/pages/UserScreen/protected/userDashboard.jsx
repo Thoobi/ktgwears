@@ -22,7 +22,7 @@ export function UserDashboard() {
   const [activeTab, setActiveTab] = useState("SHIPPING");
   return (
     <section className="w-full px-4 mt-14 font-clash flex flex-row">
-      <section className="border-r border-r-gray-400 w-1/4 h-screen">
+      <section className="border-r border-r-gray-400 w-1/5 h-screen">
         <Sidebar
           navlink={sidebarItems}
           setActiveTab={setActiveTab}

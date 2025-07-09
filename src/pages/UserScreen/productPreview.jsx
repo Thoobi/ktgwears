@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
 import { GoChevronDown } from "react-icons/go";
-import stroke from "@/assets/arrow.svg";
+import { MdArrowBack } from "react-icons/md";
 
 export default function ProductPreview() {
   const [product, setProduct] = useState({});
@@ -50,15 +50,14 @@ export default function ProductPreview() {
   };
 
   return (
-    <div className="w-full h-full flex flex-col justify-center mt-24 gap-10 max-lg:flex-col items-center max-lg:px-5 max-lg:mt-30 max-lg:gap-10 font-clash">
+    <div className="w-full h-full flex flex-col justify-center mt-24 gap-10 max-lg:flex-col items-center max-md:mt-30 max-md:gap-10 font-clash">
       <span className="w-full flex justify-start items-center px-5">
-        <Link to="/Shop" className="text-2xl text-black flex gap-4">
-          <img src={stroke} alt="" />
+        <Link to="/Shop" className="text-lg text-black flex">
+          <MdArrowBack className="text-2xl" />
         </Link>
       </span>
-      <h1 className="text-5xl text-black max-lg:text-2xl">Product Details</h1>
       <div className="w-full flex justify-center items-center gap-10 max-lg:gap-5 max-lg:flex-col">
-        <div className="w-[400px] border-[1px] max-lg:w-full flex justify-center items-center border-gray-400">
+        <div className="w-[400px] border-[1px] max-lg:w-full max-md:w-[250px] flex justify-center items-center border-gray-400">
           <img
             src={product.image_url}
             alt={product.name}
@@ -66,7 +65,7 @@ export default function ProductPreview() {
           />
         </div>
 
-        <div className="w-[400px] max-lg:w-full bg-gray-100 bg-opacity-50 border-[1px] flex flex-col gap-5 max-lg:gap-2 border-gray-400 p-5">
+        <div className="w-[400px] max-md:w-[320px] bg-gray-100 bg-opacity-50 border-[1px] flex flex-col gap-5 max-lg:gap-2 border-gray-400 p-5">
           <h1 className="text-4xl font-medium max-lg:text-2xl max-lg:font-normal uppercase">
             {product.name}
           </h1>
@@ -78,7 +77,8 @@ export default function ProductPreview() {
             <div className="flex items-center gap-2 max-lg:gap-5 w-full">
               <div
                 className="border-[1px] border-gray-300 px-4 py-2 rounded-md w-full flex justify-between items-center flex-col gap-3 cursor-pointer"
-                onClick={handleSizeClick}>
+                onClick={handleSizeClick}
+              >
                 <div className="flex justify-between items-center w-full gap-2">
                   <span className="text-base text-gray-800">
                     {selectedSize || "SELECT A SIZE"}
@@ -95,7 +95,8 @@ export default function ProductPreview() {
                         className={`border-[1px] px-2 border-gray-300 text-base w-full flex items-center py-2 hover:bg-gray-100 ${
                           selectedSize === size ? "bg-gray-200" : ""
                         }`}
-                        onClick={() => setSelectedSize(size)}>
+                        onClick={() => setSelectedSize(size)}
+                      >
                         {size}
                       </button>
                     ))}
@@ -106,21 +107,21 @@ export default function ProductPreview() {
           </div>
           <button
             className="bg-black text-white px-4 py-2 rounded-md max-lg:mt-2"
-            onClick={() => addToCart(product)}>
+            onClick={() => addToCart(product)}
+          >
             Add to Cart
           </button>
-          <div className="flex gap-2 items-start justify-between max-lg:mt-2 max-[350px]:flex-col max-[350px]:items-center max-[350px]:w-full">
-            <Link to="/checkout">
-              <button className="bg-black text-white px-4 py-2 rounded-md max-[350px]:w-full">
+
+          {/* <Link to="/checkout">
+              <button className="bg-black text-white px-4 py-2 rounded-md">
                 Checkout
               </button>
-            </Link>
-            <Link to="/shop">
-              <button className="bg-black text-white px-4 py-2 rounded-md">
-                Continue Shopping
-              </button>
-            </Link>
-          </div>
+            </Link> */}
+          <Link to="/shop">
+            <button className="bg-black text-white px-4 py-2 rounded-md w-full">
+              Continue Shopping
+            </button>
+          </Link>
         </div>
       </div>
     </div>

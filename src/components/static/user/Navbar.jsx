@@ -83,7 +83,7 @@ const Navbar = () => {
         menuRef.current,
         { height: 0, opacity: 0, y: -20 },
         {
-          height: "93.3vh",
+          height: "90dvh",
           opacity: 1,
           y: 0,
         }

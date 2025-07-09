@@ -28,7 +28,7 @@ const Cart = () => {
 
   return (
     <div
-      className={`flex flex-row bg-red-600 h-full w-lg max-lg:w-full max-lg:h-screen font-clash cart`}
+      className={`flex flex-row bg-red-700 h-full w-lg max-md:w-full max-md:h-screen font-clash cart`}
       ref={cart}
     >
       <span
@@ -42,34 +42,39 @@ const Cart = () => {
           Close shopping cart
         </span>
       </span>
-      <div className="w-[28.75rem] max-lg:w-full h-full bg-gray-100 text-black py-10 overflow-scroll">
+      <div className="w-[28.75rem] max-md:w-full h-full bg-gray-100 text-black py-10 overflow-scroll">
         <div className="absolute top-0 py-3 pr-14 pl-5 z-20 text-black w-full items-center justify-between flex flex-row-reverse bg-white/10 backdrop-blur-sm">
-          <h1 className="text-4xl font-normal max-lg:text-3xl">Your Cart</h1>
+          <h1 className="text-4xl font-normal max-lg:text-3xl max-md:font-semibold">
+            Your Cart
+          </h1>
         </div>
-        <div className="flex flex-col gap-10 max-lg:w-full justify-center items-center text-black py-5 mt-10 mb-24 pr-10 max-lg:px-4">
+        <div className="flex flex-col gap-10 max-md:w-full max-md:justify-start max-md:items-start max-md:px-4 justify-center items-center text-black py-5 mt-10 mb-24 pr-10">
           {cartItem.length > 0 ? (
             cartItem.map((item, index) => (
-              <div key={index} className="flex items-start gap-3 max-lg:gap-2">
+              <div
+                key={index}
+                className="flex items-start gap-3 max-lg:gap-2 max-md:w-full"
+              >
                 <button
                   onClick={() => {
                     removeFromCart(item);
                   }}
                 >
-                  <IoCloseOutline className="text-[1.7rem] bg-red-500 text-white rounded-full p-1" />
+                  <IoCloseOutline className="text-[1.3rem] bg-red-500 text-white rounded-full p-0.5" />
                 </button>
-                <div className="flex flex-row gap-10 max-lg:gap-3">
-                  <span className="w-28 border-[1px] border-dashed border-black rounded-md">
+                <div className="flex flex-row gap-10 max-lg:gap-3 max-md:w-full max-md:gap-8">
+                  <span className="w-32 border-[1px] border-dashed border-black rounded-md">
                     <img
                       src={item.image_url}
                       alt={item.name}
                       className="w-full h-full"
                     />
                   </span>
-                  <div className="flex flex-col gap-3 max-lg:gap-1 justify-center">
+                  <div className="flex flex-col gap-3 max-lg:gap-1 justify-center max-md:w-full max-md:px-2">
                     <h2 className="text-base font-normal text-gray-800 uppercase">
                       {item.name}
                     </h2>
-                    <div className="flex flex-row items-center justify-between max-lg:pr-2">
+                    <div className="flex flex-row items-center justify-between max-md:gap-2 max-md:w-full max-md:px-1">
                       <p className="text-base font-medium text-gray-800">{`₦${item.price.toLocaleString(
                         "en-NG"
                       )}`}</p>
