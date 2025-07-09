@@ -45,7 +45,7 @@ export default function Sidebar({ navlink, setActiveTab, activeTab }) {
       </div>
       <button
         onClick={handleLogout}
-        className="px-8 py-2 max-md:px-4 max-md:py-4 max-md:text-base bg-red-600 text-white text-lg font-medium rounded-full absolute bottom-20"
+        className="px-8 py-2 max-md:px-4 max-md:py-4 max-md:text-base bg-red-600 text-white text-lg font-medium rounded-full absolute bottom-20 max-md:bottom-28"
       >
         <RiLogoutBoxRLine className="text-lg" />
       </button>
