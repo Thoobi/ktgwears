@@ -11,4 +11,8 @@ export default defineConfig({
       "@assets": "/src/assets",
     },
   },
+  build: {
+    outDir: "dist",
+    sourcemap: true,
+  },
 });
