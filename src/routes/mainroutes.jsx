@@ -23,11 +23,11 @@ import UserDashboardLayout from "@components/layout/UserDashboardLayout";
 export const mainroute = createBrowserRouter([
   {
     element: (
-      <CartProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <CartProvider>
           <Layout />
-        </AuthProvider>
-      </CartProvider>
+        </CartProvider>
+      </AuthProvider>
     ),
     children: [
       {
@@ -76,14 +76,7 @@ export const mainroute = createBrowserRouter([
         element: <Auth />,
       },
       {
-        element: (
-          <CartProvider>
-            <AuthProvider>
-              <ProtectedRoutes />
-              <UserDashboardLayout />
-            </AuthProvider>
-          </CartProvider>
-        ),
+        element: <UserDashboardLayout />,
         children: [
           {
             path: "user",
