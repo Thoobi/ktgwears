@@ -49,19 +49,6 @@ function LoginForm() {
       className="
       flex flex-col gap-5 border-2 border-gray-700 py-10 max-lg:py-5 w-[450px] max-lg:w-full justify-center items-center max-lg:border-[1px] max-lg:border-black"
     >
-      <span className="w-full text-start px-10 flex gap-1 flex-col max-lg:px-3">
-        <h1 className="text-4xl font-medium w-full text-start">Login</h1>
-        <p className="flex gap-1 flex-col">
-          Welcome back! Login to your account to continue shopping with us 🌟
-          <Link to={"/forgotpassword"}>
-            <span className="text-blue-500 font-medium text-base underline">
-              {" "}
-              Forgot password?
-            </span>
-          </Link>
-        </p>
-      </span>
-
       <div className="flex flex-col gap-3 w-full justify-center items-center">
         <div className="flex flex-col max-lg:w-full max-lg:px-2">
           <label htmlFor="email" className="text-base font-medium">

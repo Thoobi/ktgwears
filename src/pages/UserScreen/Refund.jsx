@@ -1,17 +1,19 @@
 export const Refund = () => {
   return (
     <div className="flex flex-col gap-20 mt-24 px-5 w-full font-clash">
-      <div className="flex flex-col gap-10">
-        <h1 className="text-6xl font-medium">Return Policy</h1>
+      <div className="flex flex-col gap-10 max-md:gap-5">
+        <h1 className="text-6xl font-medium max-md:text-4xl">Return Policy</h1>
         <div className="flex flex-col gap-8">
-          <span className="text-2xl text-gray-800">
+          <span className="text-2xl text-gray-800 max-md:text-lg">
             We offer a 24-48 hour return window for all products from the
             delivery date. If you are not satisfied with your purchase, you can
             return it for a full refund or exchange it for another item.
           </span>
-          <div className="flex flex-col gap-5">
-            <span className="text-2xl text-gray-800">Requests:</span>
-            <ul className="flex gap-4 flex-col text-2xl text-gray-800">
+          <div className="flex flex-col gap-5 max-md:gap-3">
+            <span className="text-2xl text-gray-800 max-md:text-xl max-md:font-medium">
+              Requests:
+            </span>
+            <ul className="flex gap-4 flex-col text-2xl max-md:text-lg text-gray-800">
               <span className="border-[1px] border-dashed border-gray-300 w-full"></span>
               <li>
                 Items omitted from the order, damaged, defective or incomplete

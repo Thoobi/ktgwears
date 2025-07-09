@@ -1,10 +1,12 @@
 export const Shipping = () => {
   return (
     <div className="flex flex-col gap-20 mt-24 px-5 w-full font-clash">
-      <div className="flex flex-col gap-10">
-        <h1 className="text-6xl font-semibold">Shipping Policy</h1>
-        <div className="flex flex-col gap-8 text-2xl font-light text-gray-800">
-          <p>
+      <div className="flex flex-col gap-10 max-md:gap-5">
+        <h1 className="text-6xl max-md:text-4xl max-md:font-medium font-semibold">
+          Shipping Policy
+        </h1>
+        <div className="flex flex-col gap-8 ">
+          <p className="text-2xl font-light text-gray-800 max-md:text-lg">
             We are committed to delivering your orders promptly and efficiently.
             All shipping charges will be calculated based on your location and
             added to your final bill. Please note that additional charges may be
@@ -12,8 +14,10 @@ export const Shipping = () => {
             delivery services.
           </p>
 
-          <div className="flex flex-col gap-5">
-            <h2 className="text-3xl font-medium">Delivery Timeframes</h2>
+          <div className="flex flex-col gap-5 max-md:gap-3">
+            <h2 className="text-3xl font-medium max-md:text-2xl">
+              Delivery Timeframes
+            </h2>
             <ul className="flex gap-4 flex-col">
               <span className="border-[1px] border-dashed border-gray-300 w-full"></span>
               <li>Within Lagos: 1-2 business days</li>
@@ -25,7 +29,9 @@ export const Shipping = () => {
           </div>
 
           <div className="flex flex-col gap-5">
-            <h2 className="text-3xl font-medium">Additional Information</h2>
+            <h2 className="text-3xl font-medium max-md:text-2xl">
+              Additional Information
+            </h2>
             <ul className="flex gap-4 flex-col">
               <span className="border-[1px] border-dashed border-gray-300 w-full"></span>
               <li>Express shipping available at additional cost</li>
@@ -38,14 +44,14 @@ export const Shipping = () => {
                 Remote location surcharges will be communicated before delivery
               </li>
               <span className="border-[1px] border-dashed border-gray-300 w-full"></span>
-              <li>Free shipping on orders above ₦50,000 within Lagos</li>
-              <span className="border-[1px] border-dashed border-gray-300 w-full"></span>
-              <li>Tracking information will be provided via email and SMS</li>
+              <li>Tracking information will be provided via email or SMS</li>
             </ul>
           </div>
 
           <div className="flex flex-col gap-5">
-            <h2 className="text-3xl font-medium">Important Notes</h2>
+            <h2 className="text-3xl font-medium max-md:text-2xl">
+              Important Notes
+            </h2>
             <ul className="flex gap-4 flex-col">
               <span className="border-[1px] border-dashed border-gray-300 w-full"></span>
               <li>All shipping charges are non-refundable</li>
