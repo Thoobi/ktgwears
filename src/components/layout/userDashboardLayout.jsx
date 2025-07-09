@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import Navbar from "@components/static/user/Navbar";
+import Navbar from "../Static/User/navbar";
 
 export default function UserDashboardLayout() {
   return (

@@ -43,7 +43,7 @@ export default function ProductPreview() {
     if (selectedProduct) {
       setProduct(selectedProduct);
     }
-  }, [id]);
+  }, [id, allWearables]);
 
   const handleSizeClick = () => {
     setShowSize(!showSize);
@@ -70,7 +70,7 @@ export default function ProductPreview() {
           <h1 className="text-4xl font-medium max-lg:text-2xl max-lg:font-normal uppercase">
             {product.name}
           </h1>
-          <p className="text-2xl text-gray-800 max-lg:text-xl max-lg:font-medium">{`₦ ${product.price.toLocaleString(
+          <p className="text-2xl text-gray-800 max-lg:text-xl max-lg:font-medium">{`₦ ${product?.price?.toLocaleString(
             "en-NG"
           )}`}</p>
           <div className="flex items-start gap-1 flex-col">
@@ -78,8 +78,7 @@ export default function ProductPreview() {
             <div className="flex items-center gap-2 max-lg:gap-5 w-full">
               <div
                 className="border-[1px] border-gray-300 px-4 py-2 rounded-md w-full flex justify-between items-center flex-col gap-3 cursor-pointer"
-                onClick={handleSizeClick}
-              >
+                onClick={handleSizeClick}>
                 <div className="flex justify-between items-center w-full gap-2">
                   <span className="text-base text-gray-800">
                     {selectedSize || "SELECT A SIZE"}
@@ -96,8 +95,7 @@ export default function ProductPreview() {
                         className={`border-[1px] px-2 border-gray-300 text-base w-full flex items-center py-2 hover:bg-gray-100 ${
                           selectedSize === size ? "bg-gray-200" : ""
                         }`}
-                        onClick={() => setSelectedSize(size)}
-                      >
+                        onClick={() => setSelectedSize(size)}>
                         {size}
                       </button>
                     ))}
@@ -108,8 +106,7 @@ export default function ProductPreview() {
           </div>
           <button
             className="bg-black text-white px-4 py-2 rounded-md max-lg:mt-2"
-            onClick={() => addToCart(product)}
-          >
+            onClick={() => addToCart(product)}>
             Add to Cart
           </button>
           <div className="flex gap-2 items-start justify-between max-lg:mt-2 max-[350px]:flex-col max-[350px]:items-center max-[350px]:w-full">

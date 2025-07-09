@@ -1,23 +1,23 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "@components/layout/userLayout";
-import { WelcomeScreen } from "@/pages/userscreen/welcomeScreen";
-import { Shop } from "@/pages/userscreen/shop";
-import { Stories } from "@/pages/userscreen/stories";
-import { Stylechart } from "@/pages/userscreen/stylechart";
-import { About } from "@/pages/userscreen/about";
-import { Refund } from "@/pages/userscreen/refund";
-import { Shipping } from "@/pages/userscreen/shipping";
-import { Checkout } from "@/pages/userscreen/checkout";
-import { Auth } from "@/pages/userscreen/auth";
+import Layout from "../components/layout/userLayout";
+import { WelcomeScreen } from "@/pages/UserScreen/welcomeScreen";
+import { Shop } from "@/pages/UserScreen/shop";
+import { Stories } from "@/pages/UserScreen/stories";
+import { Stylechart } from "@/pages/UserScreen/stylechart";
+import { About } from "@/pages/UserScreen/about";
+import { Refund } from "@/pages/UserScreen/refund";
+import { Shipping } from "@/pages/UserScreen/shipping";
+import { Checkout } from "@/pages/UserScreen/checkout";
+import { Auth } from "@/pages/UserScreen/auth";
 import { AuthProvider } from "@/context/AuthContext";
-import { UserDashboard } from "@/pages/userscreen/protected/userDashboard";
+import { UserDashboard } from "@/pages/UserScreen/protected/userDashboard";
 import ProtectedRoutes from "@/routes/protectedRoutes";
-import ProductPreview from "@/pages/userscreen/productPreview";
-import ForgotPassword from "@/pages/userscreen/forgotPassword";
-import Adminlayout from "@components/layout/adminLayout";
+import ProductPreview from "@/pages/UserScreen/productPreview";
+import ForgotPassword from "@/pages/UserScreen/forgotPassword";
 import Admindashboard from "@/pages/adminscreen/adminDashboard";
 import Adminlogin from "@/pages/adminscreen/adminLogin";
-import UserDashboardLayout from "@components/layout/UserDashboardLayout";
+import UserDashboardLayout from "../components/layout/userDashboardLayout";
+import Adminlayout from "../components/layout/adminLayout";
 
 export const mainroute = createBrowserRouter([
   {

@@ -33,8 +33,7 @@ export default function Sidebar({ navlink, setActiveTab, activeTab }) {
                 activeTab === item.tab
                   ? "text-red-600 font-bold"
                   : "text-gray-500"
-              }`}
-            >
+              }`}>
               {item.name}
             </button>
           ))}
@@ -42,8 +41,7 @@ export default function Sidebar({ navlink, setActiveTab, activeTab }) {
       </div>
       <button
         onClick={handleLogout}
-        className="px-8 py-2 bg-red-600 text-white text-lg font-medium rounded-full absolute bottom-20"
-      >
+        className="px-8 py-2 bg-red-600 text-white text-lg font-medium rounded-full absolute bottom-20">
         Logout
       </button>
     </section>
