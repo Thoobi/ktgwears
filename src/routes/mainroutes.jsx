@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Layout from "@components/layout/userLayout";
+import Layout from "@/src/components/layout/userLayout";
 import { WelcomeScreen } from "@/pages/UserScreen/welcomeScreen";
 import { Shop } from "@/pages/UserScreen/shop";
 import { Stories } from "@/pages/UserScreen/stories";
@@ -14,10 +14,12 @@ import { UserDashboard } from "@/pages/UserScreen/protected/userDashboard";
 import ProtectedRoutes from "@/routes/protectedRoutes";
 import ProductPreview from "@/pages/UserScreen/productPreview";
 import ForgotPassword from "@/pages/UserScreen/forgotPassword";
-import Adminlayout from "@components/layout/adminLayout";
+// import Adminlayout from "@components/layout/adminLayout";
 import Admindashboard from "@/pages/adminscreen/adminDashboard";
 import Adminlogin from "@/pages/adminscreen/adminLogin";
-import UserDashboardLayout from "@components/layout/UserDashboardLayout";
+import UserDashboardLayout from "src/components/layout/userDashboardLayout";
+import Adminlayout from "src/components/layout/adminLayout";
+// import UserDashboardLayout from "@components/layout/UserDashboardLayout";
 
 export const mainroute = createBrowserRouter([
   {
