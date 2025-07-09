@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router-dom";
-import { mainroute } from "./Routes/Mainroutes";
+import { mainroute } from "./Routes/mainroutes";
 import { CartProvider } from "@/context/CartContext";
 
 function App() {
