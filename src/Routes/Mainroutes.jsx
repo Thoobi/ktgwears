@@ -5,7 +5,6 @@ import { Shop } from "@/pages/userscreen/shop";
 import { Stories } from "@/pages/userscreen/stories";
 import { Stylechart } from "@/pages/userscreen/stylechart";
 import { About } from "@/pages/userscreen/about";
-import { CartProvider } from "@/context/CartContext";
 import { Refund } from "@/pages/userscreen/refund";
 import { Shipping } from "@/pages/userscreen/shipping";
 import { Checkout } from "@/pages/userscreen/checkout";
@@ -24,9 +23,7 @@ export const mainroute = createBrowserRouter([
   {
     element: (
       <AuthProvider>
-        <CartProvider>
-          <Layout />
-        </CartProvider>
+        <Layout />
       </AuthProvider>
     ),
     children: [
