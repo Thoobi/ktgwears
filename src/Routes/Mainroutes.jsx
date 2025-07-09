@@ -20,7 +20,7 @@ import Admindashboard from "@/pages/adminscreen/adminDashboard";
 import Adminlogin from "@/pages/adminScreen/adminLogin";
 import UserDashboardLayout from "@components/layout/userDashboardLayout";
 
-export const mainRoute = createBrowserRouter([
+export const mainroute = createBrowserRouter([
   {
     element: (
       <CartProvider>
