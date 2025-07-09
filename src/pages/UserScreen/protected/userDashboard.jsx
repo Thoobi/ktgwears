@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Sidebar from "@components/userComponents/sidebar";
-import Order from "@components/userComponents/postAuth/order";
-import Shipping from "@components/userComponents/postAuth/shippingInfo";
+import Order from "@/src/components/userComponents/postAuth/order";
+import Shipping from "@/src/components/userComponents/postAuth/shippingInfo";
+import Sidebar from "@/src/components/userComponents/sidebar";
 
 const sidebarItems = [
   {
