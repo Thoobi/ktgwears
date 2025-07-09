@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import LoginForm from "@/components/userComponents/LoginForm";
 import SignupForm from "@/components/userComponents/SignupForm";
 import logo from "@/assets/ktg-logo.svg";
-import UseGoogle from "@/components/userComponents/UseGoogle";
 import { useCart } from "@/hooks/useCart";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -18,9 +17,9 @@ export function Checkout() {
   });
 
   return (
-    <div className="flex flex-col py-10 px-5 max-lg:px-3 h-full font-clash">
+    <div className="flex flex-col py-10 px-5 max-lg:px-3 h-full font-clash  ">
       <span className="flex flex-row justify-between items-center">
-        <h1 className="text-7xl">Checkout</h1>
+        <h1 className="text-7xl max-md:text-4xl">Checkout</h1>
         <img
           src={logo}
           alt="logo"
@@ -28,8 +27,8 @@ export function Checkout() {
         />
       </span>
       {!isAuthenticated ? (
-        <span className="flex flex-col justify-between items-start">
-          <h2 className="text-3xl font-normal ">
+        <span className="flex flex-col justify-between items-start max-md:gap-3">
+          <h2 className="text-3xl font-normal max-md:text-xl">
             Welcome back, kindly login or Signup to checkout your order
           </h2>
           <p>
@@ -38,7 +37,7 @@ export function Checkout() {
           </p>
         </span>
       ) : (
-        <section className="flex flex-row justify-between items-start gap-5 relative">
+        <section className="flex flex-row justify-between items-start gap-5 relative max-md:gap-3">
           <span className="flex flex-col justify-between items-start gap-2">
             <h2 className="text-3xl font-normal">
               Welcome, kindly fill in your correct shipping information
@@ -59,20 +58,22 @@ export function Checkout() {
                   key={index}
                   className="flex items-start gap-3 max-lg:gap-2"
                 >
-                  <div className="flex flex-row gap-5 max-lg:gap-3">
+                  <div className="flex flex-row gap-5 max-lg:gap-5">
                     <span className="w-20 h-20 border border-gray-300 rounded-md">
                       <img
-                        src={item.img}
+                        src={item.image_url}
                         alt={item.name}
-                        className="w-full h-auto"
+                        className="w-full h-full object-contain"
                       />
                     </span>
                     <div className="flex flex-col gap-1 max-lg:gap-1 justify-center">
                       <h2 className="text-base font-normal text-gray-800">
                         {item.title}
                       </h2>
-                      <div className="flex flex-row items-center justify-between max-lg:pr-2">
-                        <p className="text-base font-medium text-gray-800">{`₦${item.nairaPrice}`}</p>
+                      <div className="flex flex-row items-start gap-2 justify-between max-lg:pr-2">
+                        <p className="text-base font-medium text-gray-800">{`₦${item.price.toLocaleString(
+                          "en-NG"
+                        )}`}</p>
                         <p className="text-base font-medium text-gray-800">
                           {item.size}
                         </p>
@@ -92,7 +93,9 @@ export function Checkout() {
             )}
             <div className="flex self-start justify-between items-center gap-2 w-full border-t border-t-gray-300 py-2 border-dashed">
               <span className="font-medium">Total:</span>
-              <span className="font-medium text-base">₦{cartTotal}</span>
+              <span className="font-medium text-base">
+                ₦{cartTotal.toLocaleString("en-NG")}
+              </span>
             </div>
             <div className="flex justify-center items-center w-full">
               <button
@@ -110,10 +113,9 @@ export function Checkout() {
 
       <div className="flex flex-row mt-10 py-10 max-lg:py-5 justify-center items-center">
         {!isAuthenticated ? (
-          <section className="flex gap-10 w-full justify-center items-center max-lg:flex-col max-lg:gap-5">
+          <section className="flex gap-10 w-full justify-center items-center max-lg:flex-col max-md:gap-10">
             <LoginForm />
             <SignupForm />
-            <UseGoogle />
           </section>
         ) : (
           <section className="flex flex-col gap-10 w-full justify-center items-center max-lg:flex-col max-lg:gap-5">

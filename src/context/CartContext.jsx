@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import ShippingInfo from "@/components/userComponents/shippingInfo";
 import Payment from "@/components/userComponents/stack/Payment";
 import { Toaster, toast } from "sonner";
+import { supabase } from "@/lib/supaClient";
 
 const CartContext = createContext();
 const progressTab = [
@@ -28,6 +29,16 @@ const progressTab = [
 
 const CartProvider = ({ children }) => {
   const size = ["S", "M", "L", "XL"];
+  const [allWearables, setAllWearables] = useState([
+    {
+      name: "",
+      price: 0,
+      category: "",
+      imageUrl: "",
+      size: [],
+      id: "",
+    },
+  ]);
   const [cartActive, setCartActive] = useState(false);
   const [selectedSize, setSelectedSize] = useState("");
   const [cartItems, setCartItems] = useState([]);
@@ -126,28 +137,24 @@ const CartProvider = ({ children }) => {
   const decreaseQuantity = useCallback((value) => {
     setCartItems((prevCart) => {
       const updatedCart = prevCart.map((item) => {
-        if (item.id === value.id && item.size === value.size) {
+        if (
+          item.id === value.id &&
+          item.size === value.size &&
+          item.quantity > 1
+        ) {
           const newQuantity = item.quantity - 1;
           return { ...item, quantity: newQuantity };
         }
         return item;
       });
-
       const filteredCart = updatedCart.filter((item) => item.quantity > 0);
-
-      if (filteredCart.length === 0) {
-        sessionStorage.removeItem("cartItems");
-      } else {
-        sessionStorage.setItem("cartItems", JSON.stringify(filteredCart));
-      }
-
       return filteredCart;
     });
   }, []);
 
   const calculateTotal = useCallback((items) => {
     return items.reduce((total, item) => {
-      const price = item.nairaPrice;
+      const price = item.price;
       return total + price * (item.quantity || 1);
     }, 0);
   }, []);
@@ -162,6 +169,31 @@ const CartProvider = ({ children }) => {
       setCartLength(0);
     }
   }, [cartItems, calculateTotal]);
+  const [limit] = useState(7);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const from = (page - 1) * limit;
+  const to = from + limit - 1;
+  const totalPages = Math.ceil(total / limit);
+  const [loading, setLoading] = useState(true);
+
+  const getAllWears = async () => {
+    setLoading(true);
+    const data = await supabase
+      .from("clothes")
+      .select("*", { count: "exact" })
+      .order("created_at", { ascending: false })
+      .range(from, to);
+    if (data.error) {
+      console.error("Error fetching wears:", data.error);
+      toast.error(data.error.message || "Failed to fetch wearables");
+      setLoading(false);
+    }
+    setTotal(data.count || 0);
+    setAllWearables(data.data);
+    console.log(data.data);
+    setLoading(false);
+  };
 
   const clearCart = useCallback(() => {
     setCartItems([]);
@@ -199,6 +231,16 @@ const CartProvider = ({ children }) => {
     setOrderInfo,
     setMenuActive,
     menuActive,
+    getAllWears,
+    allWearables,
+    total,
+    limit,
+    page,
+    setPage,
+    from,
+    to,
+    totalPages,
+    loading,
   };
 
   return (

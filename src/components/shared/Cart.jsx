@@ -58,19 +58,21 @@ const Cart = () => {
                   <IoCloseOutline className="text-[1.7rem] bg-red-500 text-white rounded-full p-1" />
                 </button>
                 <div className="flex flex-row gap-10 max-lg:gap-3">
-                  <span className="w-32 border-[1px] border-dashed border-black rounded-md">
+                  <span className="w-28 border-[1px] border-dashed border-black rounded-md">
                     <img
-                      src={item.img}
+                      src={item.image_url}
                       alt={item.name}
                       className="w-full h-full"
                     />
                   </span>
                   <div className="flex flex-col gap-3 max-lg:gap-1 justify-center">
-                    <h2 className="text-base font-normal text-gray-800">
-                      {item.title}
+                    <h2 className="text-base font-normal text-gray-800 uppercase">
+                      {item.name}
                     </h2>
                     <div className="flex flex-row items-center justify-between max-lg:pr-2">
-                      <p className="text-base font-medium text-gray-800">{`₦${item.nairaPrice}`}</p>
+                      <p className="text-base font-medium text-gray-800">{`₦${item.price.toLocaleString(
+                        "en-NG"
+                      )}`}</p>
                       <p className="text-base font-medium text-gray-800">
                         {item.size}
                       </p>
@@ -108,7 +110,9 @@ const Cart = () => {
           <div className="flex gap-2 w-full justify-between items-center">
             <h1 className="text-base font-light">Total</h1>
             <span className="w-[70%] h-[1px] bg-white"></span>
-            <p className="text-base font-light">{`₦${cartTotal}`}</p>
+            <p className="text-base font-light">{`₦${cartTotal.toLocaleString(
+              "en-NG"
+            )}`}</p>
           </div>
           <button
             className={`bg-white text-black rounded-full h-12 w-full ${

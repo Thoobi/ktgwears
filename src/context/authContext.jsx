@@ -72,6 +72,9 @@ const AuthProvider = ({ children }) => {
           display_name: username,
         },
       },
+      user_metadata: {
+        role: "user",
+      },
     });
     if (data) {
       if (data.user?.identities?.length === 0) {
@@ -196,8 +199,10 @@ const AuthProvider = ({ children }) => {
 
       return { data, error: null };
     } catch (error) {
-      console.error("Admin login error:", error);
-      toast.error(error.message);
+      if (error.message) {
+        toast.error("You are not authorized to access this area");
+        console.error("Admin login error:", error.message);
+      }
       return { data: null, error };
     } finally {
       setIsLoading(false);

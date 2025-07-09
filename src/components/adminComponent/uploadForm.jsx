@@ -10,13 +10,13 @@ const UploadForm = () => {
   const [price, setPrice] = useState("");
   const [size, setSize] = useState([]);
   const [category, setCategory] = useState("Hoodies");
-  const [imageFile, setImageFile] = useState(null);
+  const [imageFile, setImageFile] = useState("");
   const [imagePreview, setImagePreview] = useState(null);
   const [uploading, setUploading] = useState(false);
   //   const [user, setUser] = useState(null);
   const options = [
-    { id: 1, label: "Xs" },
-    { id: 2, label: "S" },
+    { id: 1, label: "XS" },
+    { id: 2, label: "SM" },
     { id: 3, label: "M" },
     { id: 4, label: "L" },
     { id: 5, label: "XL" },
@@ -35,7 +35,7 @@ const UploadForm = () => {
   const handleFileChange = (e) => {
     const file = e.target.files?.[0];
     if (file) {
-      setImageFile(file);
+      setImageFile(file || "");
       setImagePreview(URL.createObjectURL(file));
     }
   };
@@ -59,7 +59,7 @@ const UploadForm = () => {
 
       if (uploadError) {
         toast.error("❌ Upload failed at storage.");
-        console.error("Storage error:", uploadError.message);
+        console.error("Storage error:", uploadError);
         return;
       }
 
@@ -68,20 +68,21 @@ const UploadForm = () => {
         .getPublicUrl(filePath);
 
       const imageUrl = urlData?.publicUrl;
+      console.log("Image URL:", imageUrl);
 
       const { error: insertError } = await supabase.from("clothes").insert([
         {
           name,
           price: Number(price),
           category,
-          imageUrl: imageUrl,
+          image_url: imageUrl,
           size: JSON.stringify(size),
         },
       ]);
 
       if (insertError) {
         toast.error("❌ Upload failed at database.");
-        console.error("DB error:", insertError.message);
+        console.error("DB error:", insertError);
         return;
       }
 
@@ -89,10 +90,9 @@ const UploadForm = () => {
       setName("");
       setPrice("");
       setCategory("Men");
-      setImageFile(null);
+      setImageFile("");
       setSize([]);
-      setImagePreview(null);
-      //   setRefreshKey((prev) => prev + 1);
+      setImagePreview("");
     } catch (err) {
       console.error("❌ Unexpected error:", err.message);
       toast.error("Something went wrong. Try again.");
@@ -102,11 +102,11 @@ const UploadForm = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-2xl rounded-xl">
+    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-2xl rounded-xl font-clash">
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold flex items-center gap-2">
-          <FiUploadCloud className="text-black" /> Upload New Watch
+        <h2 className="text-3xl font-medium flex items-center gap-2">
+          <FiUploadCloud className="text-black" /> Upload New Wear
         </h2>
         <button
           className="text-red-600 text-sm hover:underline flex items-center gap-1"
@@ -155,24 +155,13 @@ const UploadForm = () => {
             <option value="Essentials">Essentials</option>
           </select>
         </div>
-        {/* Selecting multiple option into an array*/}
 
-        {/* <div>
-          <label className="block text-sm font-medium mb-1">Size</label>
-          <select
-            value={size}
-            onChange={(e) => setSize(e.target.value)}
-            className="w-full p-2 border rounded focus:outline-none focus:ring-2 focus:ring-black"
-          >
-            <option value="">Xs</option>
-            <option value="SweatShirts">S</option>
-            <option value="Cargo Pants">M</option>
-            <option value="Polo">L</option>
-            <option value="Joggers">XL</option>
-            <option value="Two Piece">XXL</option>
-          </select>
-        </div> */}
         <div className="flex flex-col gap-2">
+          <span>
+            <label className="block text-sm font-medium mb-1">
+              Select Available Size:
+            </label>
+          </span>
           {options.map((option) => (
             <label
               key={option.id}
@@ -182,15 +171,30 @@ const UploadForm = () => {
                 type="checkbox"
                 checked={size.includes(option.label)}
                 onChange={() => handleSelect(option.label)}
-                className="w-4 h-4"
+                className="w-3 h-3"
               />
-              <span>{option.label}</span>
+              <span className="text-sm">{option.label}</span>
             </label>
           ))}
 
           <div className="mt-4">
             <h3>Selected Items:</h3>
-            <pre>{JSON.stringify(size, null, 2)}</pre>
+            <div className="flex  flex-wrap gap-2 mt-2">
+              {size.length > 0 ? (
+                <ul className="list-none flex flex-wrap gap-2">
+                  {size.map((item, index) => (
+                    <li
+                      key={index}
+                      className="text-sm bg-red-600 text-white px-3 py-1 rounded-full"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-sm text-gray-500">No sizes selected</p>
+              )}
+            </div>
           </div>
         </div>
         <div>
@@ -214,9 +218,9 @@ const UploadForm = () => {
         <button
           type="submit"
           disabled={uploading}
-          className="w-full bg-black text-white py-2 rounded font-semibold hover:bg-gray-900 transition"
+          className="w-full bg-black text-white py-2 rounded font-medium hover:bg-gray-900 transition"
         >
-          {uploading ? "Uploading..." : "Upload Watch"}
+          {uploading ? "Uploading..." : "Upload Wear"}
         </button>
       </form>
 

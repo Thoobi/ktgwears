@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCart } from "@/hooks/useCart";
-import { featuredCollection } from "@/lib/featured";
 import { GoChevronDown } from "react-icons/go";
 import stroke from "@/assets/arrow.svg";
 
@@ -9,17 +8,41 @@ export default function ProductPreview() {
   const [product, setProduct] = useState({});
   const [showSize, setShowSize] = useState(false);
   const { id } = useParams();
-  const { addToCart, selectedSize, setSelectedSize, size } = useCart();
+  const {
+    addToCart,
+    selectedSize,
+    setSelectedSize,
+    size,
+    getAllWears,
+    allWearables,
+  } = useCart();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    const selectedProduct = featuredCollection.find(
-      (product) => product.id === parseInt(id)
-    );
-    setProduct(selectedProduct || {});
+    const fetchWearables = async () => {
+      try {
+        const data = await getAllWears();
+        if (data) {
+          console.log(data);
+        }
+      } catch (error) {
+        console.error("Error fetching wearables:", error);
+      }
+    };
+    fetchWearables();
+  });
+
+  useEffect(() => {
+    if (!id || !allWearables?.length) return;
+
+    const selectedProduct = allWearables.find((product) => product.id === id);
+
+    if (selectedProduct) {
+      setProduct(selectedProduct);
+    }
   }, [id]);
 
   const handleSizeClick = () => {
@@ -29,26 +52,27 @@ export default function ProductPreview() {
   return (
     <div className="w-full h-full flex flex-col justify-center mt-24 gap-10 max-lg:flex-col items-center max-lg:px-5 max-lg:mt-30 max-lg:gap-10 font-clash">
       <span className="w-full flex justify-start items-center px-5">
-        <Link to="/" className="text-2xl text-black flex gap-4">
+        <Link to="/Shop" className="text-2xl text-black flex gap-4">
           <img src={stroke} alt="" />
         </Link>
       </span>
       <h1 className="text-5xl text-black max-lg:text-2xl">Product Details</h1>
       <div className="w-full flex justify-center items-center gap-10 max-lg:gap-5 max-lg:flex-col">
-        <div className="w-[500px] border-[1px] max-lg:w-full flex justify-center items-center border-gray-400">
+        <div className="w-[400px] border-[1px] max-lg:w-full flex justify-center items-center border-gray-400">
           <img
-            src={product.img}
-            alt={product.title}
+            src={product.image_url}
+            alt={product.name}
             className="w-full h-full object-cover"
           />
         </div>
 
-        <div className="w-[500px] max-lg:w-full bg-gray-100 bg-opacity-50 border-[1px] flex flex-col gap-5 max-lg:gap-2 border-gray-400 p-5">
-          <h1 className="text-4xl font-medium max-lg:text-2xl max-lg:font-normal">
-            {product.title}
+        <div className="w-[400px] max-lg:w-full bg-gray-100 bg-opacity-50 border-[1px] flex flex-col gap-5 max-lg:gap-2 border-gray-400 p-5">
+          <h1 className="text-4xl font-medium max-lg:text-2xl max-lg:font-normal uppercase">
+            {product.name}
           </h1>
-          {/* <p className="text-sm text-gray-500">{product.description}</p> */}
-          <p className="text-2xl text-gray-800 max-lg:text-xl max-lg:font-medium">{`₦${product.nairaPrice}`}</p>
+          <p className="text-2xl text-gray-800 max-lg:text-xl max-lg:font-medium">{`₦ ${product.price.toLocaleString(
+            "en-NG"
+          )}`}</p>
           <div className="flex items-start gap-1 flex-col">
             <h3 className="text-lg font-normal text-gray-800">Size</h3>
             <div className="flex items-center gap-2 max-lg:gap-5 w-full">
