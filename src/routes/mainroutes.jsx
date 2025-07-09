@@ -76,15 +76,20 @@ export const mainroute = createBrowserRouter([
         element: <Auth />,
       },
       {
-        element: <UserDashboardLayout />,
+        element: (
+          <CartProvider>
+            <AuthProvider>
+              <ProtectedRoutes />
+              <UserDashboardLayout />
+            </AuthProvider>
+          </CartProvider>
+        ),
         children: [
           {
             path: "user",
             element: (
               <ProtectedRoutes>
-                <AuthProvider>
-                  <UserDashboard />
-                </AuthProvider>
+                <UserDashboard />
               </ProtectedRoutes>
             ),
           },
