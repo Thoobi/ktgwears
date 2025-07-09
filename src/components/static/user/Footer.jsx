@@ -7,7 +7,10 @@ const Footer = () => {
     <footer className="w-full font-clash pt-20">
       <div className="flex flex-col gap-5 max-lg:px-2 ">
         <div className="flex gap-4 w-full items-center justify-between max-lg:flex-col max-lg:items-center max-lg:px-2 max-lg:gap-13">
-          <div className="text-[15rem]/[130px] font-medium flex flex-col items-center justify-start px-5 py-2 gap-5 text-black mr-20 max-lg:mr-0 max-lg:w-full max-lg:text-center max-lg:text-[10rem] max-lg:font-semibold">
+          <Link
+            to={"/"}
+            className="text-[15rem]/[130px] font-medium flex flex-col items-center justify-start px-5 py-2 gap-5 text-black mr-20 max-lg:mr-0 max-lg:w-full max-lg:text-center max-lg:text-[10rem] max-lg:font-semibold"
+          >
             <div className="">
               <span>K</span>
               <span>T</span>
@@ -15,7 +18,7 @@ const Footer = () => {
                 G<span className="text-red-600">.</span>
               </span>
             </div>
-          </div>
+          </Link>
           <div className="flex justify-between w-1/2 px-10 py-5 max-lg:w-full max-lg:px-5 max-lg:flex-col max-lg:justify-center max-lg:items-center max-lg:gap-5 max-lg:py-2">
             <div className="flex justify-between w-1/2 max-lg:w-full max-lg:px-2">
               <FooterCard
