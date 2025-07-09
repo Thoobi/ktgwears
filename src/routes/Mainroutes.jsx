@@ -18,7 +18,7 @@ import ForgotPassword from "@/pages/userscreen/forgotPassword";
 import Adminlayout from "@components/layout/adminLayout";
 import Admindashboard from "@/pages/adminscreen/adminDashboard";
 import Adminlogin from "@/pages/adminscreen/adminLogin";
-import UserDashboardLayout from "@components/layout/userDashboardLayout";
+import UserDashboardLayout from "@components/layout/UserDashboardLayout";
 
 export const mainroute = createBrowserRouter([
   {
