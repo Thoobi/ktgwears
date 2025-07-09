@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "@components/layout/userLayout";
-import { WelcomeScreen } from ".@/pages/userscreen/welcomeScreen";
+import { WelcomeScreen } from "@/pages/userscreen/welcomeScreen";
 import { Shop } from "@/pages/userscreen/shop";
 import { Stories } from "@/pages/userscreen/stories";
 import { Stylechart } from "@/pages/userscreen/stylechart";
