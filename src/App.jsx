@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import { mainroute } from "./Routes/mainroutes";
-import { CartProvider } from "@/context/CartContext";
+import { CartProvider } from "./context/cartcontext";
 
 function App() {
   return (
