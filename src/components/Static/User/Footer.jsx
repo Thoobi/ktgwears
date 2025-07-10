@@ -27,10 +27,10 @@ const Footer = () => {
                 link2="Joggers"
                 link3="T-Shirts"
                 link4="Hoodies"
-                href1="/shop"
-                href2="/shop"
-                href3="/shop"
-                href4="/shop"
+                href1="/Shop"
+                href2="/Shop"
+                href3="/Shop"
+                href4="/Shop"
               />
               <FooterCard
                 header="Company"
