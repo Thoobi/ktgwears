@@ -143,7 +143,7 @@ const Navbar = () => {
           <img
             src={ktgimg}
             alt="The logo of the brand KTG wears"
-            className={`lg:hidden max-lg:w-[25px]`}
+            className={`lg:hidden max-md:w-7`}
           />
         </Link>
 
